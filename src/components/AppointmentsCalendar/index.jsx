@@ -2,11 +2,11 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 // styled components
-import {Container, Header, StyledCalendar, Footer} from './style';
-import {Container as Tabs, Item, Button} from '@ui/TabNav/style';
+import { Container, Header, StyledCalendar, Footer } from './style';
+import { Container as Tabs, Item, Button } from '@ui/TabNav/style';
 
 // components
-import {Calendar, momentLocalizer} from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Event from '@components/AppointmentsCalendar/Event';
 import TimeSlot from '@components/AppointmentsCalendar/TimeSlot';
 import DailyToolbar from '@components/AppointmentsCalendar/DailyToolbar';
@@ -22,18 +22,19 @@ import DoctorPopup from '@components/AppointmentsCalendar/DoctorPopup';
 // utils
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import {colorTypes} from '@constants/colors';
-import {doctorsOptions} from '@constants/options';
+import { colorTypes } from '@constants/colors';
+import { doctorsOptions } from '@constants/options';
 
 // hooks
-import {useState, useRef, useEffect} from 'react';
+import { useState, useRef, useEffect } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 
 // data placeholder
-import {events, disabled} from '@db/calendar_appointments';
+import { events, disabled } from '@db/calendar_appointments';
 import CustomSelect from '@ui/Select';
+import { GetAppointmtentREwie } from '@components/Api/AllApi';
 
-const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
+const AppointmentsCalendar = ({ viewChangeHandler, current, type }) => {
     const width = useWindowSize().width;
     const localizer = momentLocalizer(moment);
 
@@ -50,14 +51,21 @@ const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
 
     const [popupOpen, setPopupOpen] = useState(false);
 
-    const DocSelect = () => {
-        return (
-            <CustomSelect options={options}
-                          value={selectedDoctor}
-                          variant="user"
-                          changeHandler={e => setSelectedDoctor(e)}/>
-        )
-    }
+    const [post, setPost] = useState(false)
+
+    useEffect(() => {
+
+        const AppShed = GetAppointmtentREwie();
+        if (AppShed) {
+            AppShed.then((data) => {
+                console.log(data, "App ShedulerA")
+                setPost(data?.result, "App ShedulerA")
+            })
+        }
+
+
+    }, [])
+
 
     const getDayFormat = () => {
         switch (true) {
@@ -80,7 +88,7 @@ const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
                         return (
                             <Item key={view}>
                                 <Button className={current === view ? 'active' : null}
-                                        onClick={() => viewChangeHandler(view)}>
+                                    onClick={() => viewChangeHandler(view)}>
                                     {view}
                                 </Button>
                             </Item>
@@ -122,8 +130,8 @@ const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
         onDrillDown: (date) => handleDayClick(date),
         events: type === 'doctor' ? events['doctor'] : current === 'day' ? events['patient'].general : events['patient'].disabled,
         backgroundEvents: type === 'doctor' ? disabled : [],
-        min: moment().startOf('year').set({hour: 9, minute: 30}).toDate(),
-        max: moment().endOf('year').set({hour: 16, minute: 30}).toDate(),
+        min: moment().startOf('year').set({ hour: 9, minute: 30 }).toDate(),
+        max: moment().endOf('year').set({ hour: 16, minute: 30 }).toDate(),
         timeslots: 1,
         step: 30,
         formats: {
@@ -132,36 +140,28 @@ const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
             timeGutterFormat: 'HH:mm',
         },
         components: {
-            toolbar: ({label, date}) =>
+            toolbar: ({ label, date }) =>
                 <Header ref={headerRef} view={current}>
                     {current === 'day' &&
-                        <DailyToolbar label={type === 'doctor' ? label : 'Daily appointments scheduler'}/>}
-                    <Navigation/>
-                    {current === 'day' && <DailyNavigation onNavigate={handleNavigation} date={date} label={label}/>}
+                        <DailyToolbar label={type === 'doctor' ? label : 'Daily appointments scheduler'} />}
+                    <Navigation />
+                    {current === 'day' && <DailyNavigation onNavigate={handleNavigation} date={date} label={label} />}
                     {current === 'week' && (
                         <>
-                            {
-                                type === 'doctor' ?
-                                    <WeekSelector date={date} setter={setCurrentDate}/>
-                                    :
-                                    <DocSelect/>
-                            }
-                            <WeeklyNavigation date={date} setter={setCurrentDate}/>
+
+                            <WeekSelector date={date} setter={setCurrentDate} />
+                            {/* <DocSelect /> */}
+                            <WeeklyNavigation date={date} setter={setCurrentDate} />
                         </>
                     )}
                     {current === 'month' && (
                         <>
-                            {
-                                type === 'doctor' ?
-                                    <MonthSelector date={date} setter={setCurrentDate}/>
-                                    :
-                                    <DocSelect/>
-                            }
-                            <MonthlyNavigation date={date} setter={setCurrentDate}/>
+                            <MonthSelector date={date} setter={setCurrentDate} />
+                            <MonthlyNavigation date={date} setter={setCurrentDate} />
                         </>
                     )}
                 </Header>,
-            event: ({event}) => <Event event={event} variant={current}/>,
+            event: ({ event }) => <Event event={event} variant={current} />,
             timeSlotWrapper: (props) => TimeSlot(props, 30, 1, true),
         },
         className: `calendar-${current} calendar-${type}`,
@@ -170,7 +170,7 @@ const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
         },
         popup: true,
         selectable: type === 'patient' && current !== 'day',
-        onSelectSlot: type === 'patient' && current !== 'day' && (() =>setPopupOpen(true))
+        onSelectSlot: type === 'patient' && current !== 'day' && (() => setPopupOpen(true))
     }
 
     return (
@@ -180,15 +180,15 @@ const AppointmentsCalendar = ({viewChangeHandler, current, type}) => {
                 {
                     type === 'patient' && current !== 'day' &&
                     <DoctorPopup elemsHeight={height} name={selectedDoctor.label || null} open={popupOpen}
-                                 handler={setPopupOpen}/>
+                        handler={setPopupOpen} />
                 }
             </Container>
             <Footer ref={footerRef}>
                 <Legend>
                     {
-                        colorTypes.map(({cat, color, label}) => {
+                        colorTypes.map(({ cat, color, label }) => {
                             return (
-                                <LegendItem key={cat} color={color} legend={label}/>
+                                <LegendItem key={cat} color={color} legend={label} />
                             )
                         })
                     }

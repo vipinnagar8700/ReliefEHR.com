@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router';
 import Page from '@layout/Page';
+import { useSnackbar } from 'notistack';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -33,6 +34,7 @@ const Style = {
 
 
 const SecurityGroups = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const [Sec, setSec] = useState(false)
     const [selectedTab, setSelectedTab] = useState('');
     const [openModal, setOpenModal] = useState(false);
@@ -296,14 +298,14 @@ const SecurityGroups = () => {
                     </Box>
                 </Box>
             }
-            <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+            <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                 <CardContent>
                     
-                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1400px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
                         <CardContent>
                             
                             <div className="Order Page">
-                                <DataTableExtensions {...tableData}>
+                                <DataTableExtensions {...tableData}  print={false}  export={false}>
                                     <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                                 </DataTableExtensions>
                             </div>

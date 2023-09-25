@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
 import Btn from '@ui/Btn';
 import CustomSelect from '@ui/Select';
+import { useSnackbar } from 'notistack';
 import DateInput from '@components/MaskedInputs/Date';
 import Phone from '@components/MaskedInputs/Phone';
 // styled components
@@ -28,7 +29,7 @@ import { useState, useEffect } from 'react';
 import useNotistack from '@hooks/useNotistack';
 import Cookies from 'js-cookie';
 import Page from '@layout/Page';
-import { ADDEMAILTES, ADDSMSTES, ADDTrigger, AddPatientapi } from '@components/Api/AllApi';
+import { ADDEMAILTES, ADDSMSTES, ADDTrigger, AddPatientapi, GetSmsTemplate } from '@components/Api/AllApi';
 import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
 import { useNavigate } from 'react-router';
@@ -47,6 +48,7 @@ const schema = yup.object().shape({
 
 
 const AddTriggers = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const navigate = useNavigate()
     // const handleChange = (event) => {
@@ -78,10 +80,23 @@ const AddTriggers = ({ type }) => {
         if (PatientAddData) {
             PatientAddData.then((data) => {
                 console.log(data.messege);
-                alert(data.messege)
+                // alert(data.messege)
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             });
         } else {
-            alert("Api's Error OCCUR");
+            enqueueSnackbar("Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
         }
 
     };
@@ -110,6 +125,16 @@ const AddTriggers = ({ type }) => {
         onSubmit: HandleClick
     });
 
+    const [post, setPost] = useState(false)
+    useEffect(() => {
+        const GEDAA = GetSmsTemplate()
+        if (GEDAA) {
+            GEDAA.then((data) => {
+                console.log(data, "PPPPPPPPPPPP")
+                setPost(data?.result)
+            })
+        }
+    },[])
 
 
 
@@ -187,8 +212,14 @@ const AddTriggers = ({ type }) => {
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Select Template</InputLabel>
 
                                                         <Select onChange={handleChange} onBlur={handleBlur} size="small" name="Tem" fullWidth value={values.Tem}>
-                                                            <MenuItem>Select a template</MenuItem>
-                                                            <MenuItem value="7">Email</MenuItem>
+                                                            {
+                                                                post && post.map((data, index) => {
+                                                                    return (
+                                                                        <MenuItem value={data.id} key={index}>{data.name}</MenuItem>
+                                                                    )
+                                                                })
+                                                            }
+
                                                         </Select>
 
                                                     </Grid>

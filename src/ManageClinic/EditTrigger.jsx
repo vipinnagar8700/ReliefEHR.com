@@ -1,34 +1,17 @@
 // styled components
-import { StyledForm } from '@widgets/UserSettings/style';
-import { Input } from '@ui/Field';
-import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
+import { Container, Grid, Button, TextField, InputLabel, option, Box, Typography } from '@mui/material';
 // components\
-import { useFormik } from "formik";
-import * as yup from 'yup';
-import DropFiles from '@components/DropFiles';
-import Btn from '@ui/Btn';
-import CustomSelect from '@ui/Select';
-import DateInput from '@components/MaskedInputs/Date';
-import Phone from '@components/MaskedInputs/Phone';
-// styled components
-import { SettingsHeader } from '@widgets/UserSettings/style';
-import { Divider } from '@components/Widget/style';
+import { useSnackbar } from 'notistack';
 
 // components
 import Widget from '@components/Widget';
-import WidgetBody from '@components/Widget/WidgetBody';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 // utils
 import PropTypes from 'prop-types';
 // hooks
 import { useState, useEffect } from 'react';
 import useNotistack from '@hooks/useNotistack';
-import Cookies from 'js-cookie';
 import Page from '@layout/Page';
-import { ADDEMAILTES, AddPatientapi, EDITTrigger, GEtEmailSingle, GEtSMSSingle, UPdateEmailTemplate, UPdateSms, UpdateTrigger } from '@components/Api/AllApi';
+import { EDITTrigger, GEtEmailSingle, GEtSMSSingle, GetSmsTemplate, UPdateEmailTemplate, UPdateSms, UpdateTrigger } from '@components/Api/AllApi';
 import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
 import { useNavigate, useParams } from 'react-router';
@@ -39,11 +22,9 @@ import { useNavigate, useParams } from 'react-router';
 
 
 const EditTrigger = ({ type }) => {
-    const [selectedMenuItem, setSelectedMenuItem] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
+    const [selectedoption, setselectedoption] = useState('');
     const navigate = useNavigate()
-    // const handleChange = (event) => {
-    //     setSelectedMenuItem(event.target.value);
-    // };
 
     const { notify } = useNotistack('Your changes have been successfully saved.', 'success');
 
@@ -79,6 +60,16 @@ const EditTrigger = ({ type }) => {
 
     }, [])
 
+    const [post, setPost] = useState(false)
+    useEffect(() => {
+        const GEDAA = GetSmsTemplate()
+        if (GEDAA) {
+            GEDAA.then((data) => {
+                console.log(data, "PPPPPPPPPPPP")
+                setPost(data?.result)
+            })
+        }
+    }, [])
 
 
     const handleUpdate = (e) => {
@@ -90,12 +81,25 @@ const EditTrigger = ({ type }) => {
 
             result.then((data) => {
                 console.log(data.messege, "thtrtrer;ojgsrdbehx");
-                alert(data.messege);
+                // alert(data.messege);
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
 
             })
             console.log(result, "Data Updated Successfully");
         } catch (error) {
-            console.error("Error occurred while updating data:", error);
+            enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
         }
     };
 
@@ -141,55 +145,60 @@ const EditTrigger = ({ type }) => {
 
                                                     <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Status Changed To (event)</InputLabel>
-                                                        <Select value={event} onChange={(e) => {
+                                                        <select style={{ padding: '10px', width: '100%', borderRadius: 3 }} value={event} onChange={(e) => {
                                                             setpro({
                                                                 ...pro, event: e.target.value
                                                             })
                                                         }} size="small" name="status" fullWidth >
-                                                            <MenuItem value="Pending">Pending
-                                                            </MenuItem>
-                                                            <MenuItem value="New Order">New Order
-                                                            </MenuItem>
-                                                            <MenuItem value="Out for Delivery">Out for Delivery
-                                                            </MenuItem>
-                                                            <MenuItem value="Completed">Completed
-                                                            </MenuItem>
-                                                            <MenuItem value="Cancelled">Cancelled
-                                                            </MenuItem>
-                                                            <MenuItem value="Denied">Denied
-                                                            </MenuItem>
+                                                            <option value="Pending">Pending
+                                                            </option>
+                                                            <option value="New Order">New Order
+                                                            </option>
+                                                            <option value="Out for Delivery">Out for Delivery
+                                                            </option>
+                                                            <option value="Completed">Completed
+                                                            </option>
+                                                            <option value="Cancelled">Cancelled
+                                                            </option>
+                                                            <option value="Denied">Denied
+                                                            </option>
 
-                                                            <MenuItem value="Not Yet Eligible">Not Yet Eligible
-                                                            </MenuItem>
-                                                            <MenuItem value="Pending Payment">Pending Payment
-                                                            </MenuItem><MenuItem value="Ready for pickup">Ready for pickup
-                                                            </MenuItem>
-                                                        </Select>
+                                                            <option value="Not Yet Eligible">Not Yet Eligible
+                                                            </option>
+                                                            <option value="Pending Payment">Pending Payment
+                                                            </option><option value="Ready for pickup">Ready for pickup
+                                                            </option>
+                                                        </select>
 
 
                                                     </Grid><Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Notification type</InputLabel>
-                                                        <Select size="small" fullWidth value={notificationType} onChange={(e) => {
+                                                        <select size="small" fullWidth value={notificationType} style={{ padding: '10px', width: '100%', borderRadius: 3 }} onChange={(e) => {
                                                             setpro({
                                                                 ...pro, notificationType: e.target.value
                                                             })
                                                         }}>
-                                                            <MenuItem value="Email">Email</MenuItem>
-                                                            <MenuItem value="Text Message">Text Message</MenuItem>
-                                                        </Select>
+                                                            <option value="Email">Email</option>
+                                                            <option value="Text Message">Text Message</option>
+                                                        </select>
 
 
                                                     </Grid><Grid item xs={12} md={6}>
-                                                        <InputLabel htmlFor={`${type}ProfileBirthday`}>Select Template</InputLabel>
+                                                        <InputLabel htmlFor={`${type}ProfileBirthday`}>select Template</InputLabel>
 
-                                                        <Select value={sms_template_id} onChange={(e) => {
+                                                        <select value={sms_template_id} style={{ padding: '10px', width: '100%', borderRadius: 3 }} onChange={(e) => {
                                                             setpro({
                                                                 ...pro, sms_template_id: e.target.value
                                                             })
                                                         }} size="small" name="Tem" fullWidth >
-                                                            <MenuItem>Select a template</MenuItem>
-                                                            <MenuItem value="7">Email</MenuItem>
-                                                        </Select>
+                                                            {
+                                                                post && post.map((data, index) => {
+                                                                    return (
+                                                                        <option value={data.id} key={index}>{data.name}</option>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </select>
 
                                                     </Grid>
 

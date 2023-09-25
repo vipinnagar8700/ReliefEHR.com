@@ -3,6 +3,7 @@ import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
 import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box } from '@mui/material';
 // components\
+import { useSnackbar } from 'notistack';
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
@@ -42,6 +43,7 @@ const schema = yup.object().shape({
 });
 
 const AddAppointmentType = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
 
     const navigate = useNavigate()
@@ -65,18 +67,30 @@ const AddAppointmentType = ({ type }) => {
     const HandleClick = (values) => {
         console.log("Data That we Add", values.Name, values.Length);
 
-            const PatientAddData = AddAppointmentTypedes(values);
-            console.log(PatientAddData, "Patient Add Data");
+        const PatientAddData = AddAppointmentTypedes(values);
+        console.log(PatientAddData, "Patient Add Data");
 
-            if (PatientAddData) {
-                PatientAddData.then((data) => {
-                    console.log(data.messege);
-                    alert(data.messege)
-                    navigate('/ManageClinic/Details')
+        if (PatientAddData) {
+            PatientAddData.then((data) => {
+                console.log(data.messege);
+                // alert(data.messege)
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
                 });
-            } else {
-                alert("Api's Error OCCUR");
-            }
+            });
+        } else {
+            enqueueSnackbar("Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
+        }
 
     };
     const {

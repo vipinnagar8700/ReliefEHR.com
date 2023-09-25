@@ -172,26 +172,20 @@ export const events = {
     patient: {
         general: [
             {
-                name: 'Bone Density Scan',
+                name: '3:00 PM  Patient Nagar',
                 start: moment().set({ hour: 10, minute: 0, second: 0 }).toDate(),
                 end: moment().set({ hour: 10, minute: 30, second: 0 }).toDate(),
                 allDay: false,
                 type: 'test'
             },
             {
-                name: 'Surgeon consultation',
-                start: moment().set({ hour: 10, minute: 30, second: 0 }).toDate(),
-                end: moment().set({ hour: 11, minute: 0, second: 0 }).toDate(),
+                name: '4:00 AM Raghu ',
+                start: moment().set({ hour: 13, minute: 30, second: 0 }).toDate(),
+                end: moment().set({ hour: 14, minute: 0, second: 0 }).toDate(),
                 allDay: false,
                 type: 'consultation'
             },
-            {
-                name: 'Calcium Blood Test',
-                start: moment().add(1, 'day').set({ hour: 13, minute: 30, second: 0 }).toDate(),
-                end: moment().add(1, 'day').set({ hour: 14, minute: 0, second: 0 }).toDate(),
-                allDay: false,
-                type: 'test'
-            },
+
         ],
         disabled: disabled
     }

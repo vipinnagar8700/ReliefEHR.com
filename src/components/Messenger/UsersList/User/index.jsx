@@ -14,18 +14,32 @@ import { Avatar } from '@mui/material';
 const User = ({ data, user, onUserSelect, setModal }) => {
 
 
-    const [post, setPost] = useState(false)
+    const [post, setPost] = useState(null)
     const handleUserClick = () => {
         // Call the callback function passed from the parent component (onUserSelect) with the user's data
         onUserSelect(data);
     }
 
 
+    useEffect(() => {
 
 
+        const fetchData = async () => {
+            try {
+                const response = await GetAllPatientData();
+                console.log(response, "ALL USERS DATA FOR MESSAGE9911118");
+                setPost(response?.result || null);
+            } catch (error) {
+                // Handle error here
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [])
 
     const handleClick = () => {
-        onUserSelect(data.id);
+        onUserSelect(post.id);
         setModal(true);
     }
 
@@ -35,16 +49,7 @@ const User = ({ data, user, onUserSelect, setModal }) => {
 
         <>
 
-            <UserItem >
-                <div className="container">
-                    <div className="main">
-                        <Avatar src={Pat} />
-                        <div className="main_wrapper">
-                            <span className="name">Vipin Nagar</span>
-                        </div>
-                    </div>
-                </div>
-            </UserItem>
+
 
 
         </>

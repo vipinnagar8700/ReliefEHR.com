@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import VideoChat from './VideoChat';
 
-const VidocallMain = () => {
+const VidocallMain = ({user}) => {
   return (
     <div className="app">
 
       <main>
-        <VideoChat />
+        <VideoChat user={user}/>
       </main>
 
     </div>

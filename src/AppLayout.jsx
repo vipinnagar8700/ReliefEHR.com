@@ -58,6 +58,7 @@ import AddSMSTemplate from 'ManageClinic/AddSmSTemplate';
 import EditSMSTempalets from 'ManageClinic/EditSMSTEMPLATES';
 import AddTriggers from 'ManageClinic/AddTriggers';
 import EditTrigger from 'ManageClinic/EditTrigger';
+import Providerprotect from 'ProviderRouteProtect';
 
 // pages
 const DashboardA = lazy(() => import('@pages/DashboardA'));
@@ -121,85 +122,87 @@ const AppLayout = () => {
                         <Route path="/Clinic/Login" element={<Login />} /> */}
                         {/* mkjhgfcgvbhnm */}
 
-                        <Route path="/Clinic-Dashboardw" element={<DashboardB />} />
-                        <Route path="/dashboard_c" element={<DashboardC />} />
-                        <Route path="/Provider-Dashboard" element={<DashboardK />} />
-                        <Route path="/dashboard_e" element={<DashboardE />} />
-                        <Route path="/dashboard_f" element={<DashboardF />} />
-                        <Route path="/dashboard_g" element={<DashboardG />} />
-                        <Route path="/dashboard_h" element={<DashboardH />} />
-                        <Route path="/dashboard_i" element={<DashboardI />} />
-                        <Route path="/dashboard_j" element={<DashboardJ />} />
-                        <Route path="/dashboard_k" element={<DashboardK />} />
-                        <Route path="/doctor_appointments" element={<DoctorAppointments />} />
-                        <Route path="/patient_appointments" element={<PatientAppointments />} />
-                        <Route path="/patients" element={<Patients />} />
-                        <Route path="/tests" element={<Tests />} />
-                        <Route path="/doctors" element={<Doctors />} />
-                        <Route path="/staff" element={<StaffList />} />
-                        <Route path="/doctor_messenger" element={<DoctorMessenger />} />
-                        <Route path="/patient_messenger" element={<PatientMessenger />} />
-                        <Route path="/document-Builder" element={<DocumentBuilder />} />
-                        <Route path="/Create-Template" element={<CreateTemplate />} />
-                        <Route path="/Edit-Template/:p_id" element={<EditTemplate />} />
-                        <Route path="/All-Reports" element={<AllReports />} />
-                        <Route path="/patient_reviews" element={<PatientReviews />} />
-                        <Route path="/doctor_reviews" element={<DoctorsReviews />} />
-                        <Route path="/Appointment-Data-List" element={<AppointmentDataList />} />
-                        <Route path="/Billing-Data-List" element={<BillingDataTable />} />
-                        <Route path="/Billing-Data-Invoice" element={<CreateInvoice />} />
-                        <Route path="/finances" element={<Finances />} />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/404" element={<PageNotFound />} />
-                        <Route path="*" element={<Navigate to="/404" replace />} />
+                        <Route path="/Clinic-Dashboardw" element={<Providerprotect><DashboardB /></Providerprotect>} />
+                        <Route path="/dashboard_c" element={<Providerprotect><DashboardC /></Providerprotect>} />
 
-                        <Route path="/ManageClinic/CreateUser" element={<CreateUser />} />
-                        <Route path="/ManageClinic/EditUser/:p_id" element={<EditUser />} />
+                        <Route path="/Provider-Dashboard" element={<Providerprotect><DashboardK /></Providerprotect>} />
+                        {/* <Route path="/Provider-Dashboard" element={<DashboardK />} /> */}
+                        <Route path="/dashboard_e" element={<Providerprotect><DashboardE /></Providerprotect>} />
+                        <Route path="/dashboard_f" element={<Providerprotect><DashboardF /></Providerprotect>} />
+                        <Route path="/dashboard_g" element={<Providerprotect><DashboardG /></Providerprotect>} />
+                        <Route path="/dashboard_h" element={<Providerprotect><DashboardH /></Providerprotect>} />
+                        <Route path="/dashboard_i" element={<Providerprotect><DashboardI /></Providerprotect>} />
+                        <Route path="/dashboard_j" element={<Providerprotect><DashboardJ /></Providerprotect>} />
+                        <Route path="/dashboard_k" element={<Providerprotect><DashboardK /></Providerprotect>} />
+                        <Route path="/doctor_appointments" element={<Providerprotect><DoctorAppointments /></Providerprotect>} />
+                        <Route path="/patient_appointments" element={<Providerprotect><PatientAppointments /></Providerprotect>} />
+                        <Route path="/patients" element={<Providerprotect><Patients /></Providerprotect>} />
+                        <Route path="/tests" element={<Providerprotect><Tests /></Providerprotect>} />
+                        <Route path="/doctors" element={<Providerprotect><Doctors /></Providerprotect>} />
+                        <Route path="/staff" element={<Providerprotect><StaffList /></Providerprotect>} />
+                        <Route path="/doctor_messenger" element={<Providerprotect><DoctorMessenger /></Providerprotect>} />
+                        <Route path="/patient_messenger" element={<Providerprotect><PatientMessenger /></Providerprotect>} />
+                        <Route path="/document-Builder" element={<Providerprotect><DocumentBuilder /></Providerprotect>} />
+                        <Route path="/Create-Template" element={<Providerprotect><CreateTemplate /></Providerprotect>} />
+                        <Route path="/Edit-Template/:p_id" element={<Providerprotect><EditTemplate /></Providerprotect>} />
+                        <Route path="/All-Reports" element={<Providerprotect><AllReports /></Providerprotect>} />
+                        <Route path="/patient_reviews" element={<Providerprotect><PatientReviews /></Providerprotect>} />
+                        <Route path="/doctor_reviews" element={<Providerprotect><DoctorsReviews /></Providerprotect>} />
+                        <Route path="/Appointment-Data-List" element={<Providerprotect><AppointmentDataList /></Providerprotect>} />
+                        <Route path="/Billing-Data-List" element={<Providerprotect><BillingDataTable /></Providerprotect>} />
+                        <Route path="/Billing-Data-Invoice" element={<Providerprotect><CreateInvoice /></Providerprotect>} />
+                        <Route path="/finances" element={<Providerprotect><Finances /></Providerprotect>} />
+                        <Route path="/settings" element={<Providerprotect><Settings /></Providerprotect>} />
+                        <Route path="/404" element={<Providerprotect><PageNotFound /></Providerprotect>} />
+                        <Route path="*" element={<Providerprotect><Navigate to="/404" replace /></Providerprotect>} />
+
+                        <Route path="/ManageClinic/CreateUser" element={<Providerprotect><CreateUser /></Providerprotect>} />
+                        <Route path="/ManageClinic/EditUser/:p_id" element={<Providerprotect><EditUser /></Providerprotect>} />
                         {/* Login Page Routing */}
 
                         {/* Shop Online Routing */}
-                        <Route path="/patients/dashboard/shop/1/products/:p_id" element={<ShopOnline />} />
-                        <Route path="/patients/dashboard/shop/1/products/5/view/:p_id" element={<SingleProductpage />} />
-                        <Route path="/Checkout" element={<Checkout />} />
-                        <Route path="/settings/ChangePassword" element={<ChangePassword />} />
+                        <Route path="/patients/dashboard/shop/1/products/:p_id" element={<Providerprotect><ShopOnline /></Providerprotect>} />
+                        <Route path="/patients/dashboard/shop/1/products/5/view/:p_id" element={<Providerprotect><SingleProductpage /></Providerprotect>} />
+                        <Route path="/Checkout" element={<Providerprotect><Checkout /></Providerprotect>} />
+                        <Route path="/settings/ChangePassword" element={<Providerprotect><ChangePassword /></Providerprotect>} />
 
-                        <Route path="/Report/ClinicDailyScheduleReport" element={<ClininDailyReport />} />
-                        <Route path="/Report/CancelAppointmentScheduleReport" element={<CancelAppointmentReport />} />
-                        <Route path="/Report/ClinicActivityReport" element={<ClinicActivityReport />} />
-                        <Route path="/Report/OrderSurveyReport" element={<OrderSurveyReport />} />
-                        <Route path="/Report/PatientStatusReport" element={<PatientStatusreport />} />
-                        <Route path="/Report/NewPatientReport" element={<NewPatientReport />} />
-                        <Route path="/Report/PatientEmailReport" element={<PatientEmailReport />} />
-                        <Route path="/Report/ChartsViewedReport" element={<ChartsViewedReport />} />
-                        <Route path="/Report/PrescriptionReport" element={<PrescriptionReport />} />
-                        <Route path="/ManageClinic/Details" element={<ManageClinic />} />
-                        <Route path="/ManageClinic/Add-Secoundary-location" element={<AddSecondaryLoaction />} />
-                        <Route path="/ManageClinic/Edit-Secoundary-location/:p_id" element={<EditSecondaryLoaction />} />
-                        <Route path="/Add-Email-Templates" element={<AddEmailTempalets />} />
-                        <Route path="/Edit-Email-Templates/:p_id" element={<EditEmailTempalets />} />
-                        <Route path="/Add-Sms-Templates" element={<AddSMSTemplate />} />
-                        <Route path="/Edit-SMS-Templates/:p_id" element={<EditSMSTempalets />} />
-                        <Route path="/Add-Triggers" element={<AddTriggers />} />
-                        <Route path="/Edit-trigger/:p_id" element={<EditTrigger />} />
+                        <Route path="/Report/ClinicDailyScheduleReport" element={<Providerprotect><ClininDailyReport /></Providerprotect>} />
+                        <Route path="/Report/CancelAppointmentScheduleReport" element={<Providerprotect><CancelAppointmentReport /></Providerprotect>} />
+                        <Route path="/Report/ClinicActivityReport" element={<Providerprotect><ClinicActivityReport /></Providerprotect>} />
+                        <Route path="/Report/OrderSurveyReport" element={<Providerprotect><OrderSurveyReport /></Providerprotect>} />
+                        <Route path="/Report/PatientStatusReport" element={<Providerprotect><PatientStatusreport /></Providerprotect>} />
+                        <Route path="/Report/NewPatientReport" element={<Providerprotect><NewPatientReport /></Providerprotect>} />
+                        <Route path="/Report/PatientEmailReport" element={<Providerprotect><PatientEmailReport /></Providerprotect>} />
+                        <Route path="/Report/ChartsViewedReport" element={<Providerprotect><ChartsViewedReport /></Providerprotect>} />
+                        <Route path="/Report/PrescriptionReport" element={<Providerprotect><PrescriptionReport /></Providerprotect>} />
+                        <Route path="/ManageClinic/Details" element={<Providerprotect><ManageClinic /></Providerprotect>} />
+                        <Route path="/ManageClinic/Add-Secoundary-location" element={<Providerprotect><AddSecondaryLoaction /></Providerprotect>} />
+                        <Route path="/ManageClinic/Edit-Secoundary-location/:p_id" element={<Providerprotect><EditSecondaryLoaction /></Providerprotect>} />
+                        <Route path="/Add-Email-Templates" element={<Providerprotect><AddEmailTempalets /></Providerprotect>} />
+                        <Route path="/Edit-Email-Templates/:p_id" element={<Providerprotect><EditEmailTempalets /></Providerprotect>} />
+                        <Route path="/Add-Sms-Templates" element={<Providerprotect><AddSMSTemplate /></Providerprotect>} />
+                        <Route path="/Edit-SMS-Templates/:p_id" element={<Providerprotect><EditSMSTempalets /></Providerprotect>} />
+                        <Route path="/Add-Triggers" element={<Providerprotect><AddTriggers /></Providerprotect>} />
+                        <Route path="/Edit-trigger/:p_id" element={<Providerprotect><EditTrigger /></Providerprotect>} />
 
 
 
                         {/* nubcfgsgdzhjxkdx, */}
-                        <Route path="/ManageClinic/Add-Appointment-type" element={<AddAppointmentType />} />
-                        <Route path="/ManageClinic/Edit-Appointment-type/:p_id" element={<EditAppointmentType />} />
-                        <Route path="/All-patient/Patient-Single-Page/:p_id" element={<PatientSinglePage />} />
-                        <Route path="/All-patient" element={<AllPatient />} />
-                        <Route path="/Find-patient" element={<FindPatient />} />
-                        <Route path="/All-Orders" element={<AllOrders />} />
-                        <Route path="/Find-Orders" element={<FindOrders />} />
-                        <Route path="/All-Products" element={<AllProducts />} />
-                        <Route path="/Create-Products" element={<CreateProducts />} />
-                        <Route path="/Add-patient" element={<AddPatient />} />
-                        <Route path="/Single-Patient-Manage-order/:p_id" element={<ManageOrder />} />
-                        <Route path="/Single-Product/:p_id" element={<EditSingleProduct />} />
+                        <Route path="/ManageClinic/Add-Appointment-type" element={<Providerprotect><AddAppointmentType /></Providerprotect>} />
+                        <Route path="/ManageClinic/Edit-Appointment-type/:p_id" element={<Providerprotect><EditAppointmentType /></Providerprotect>} />
+                        <Route path="/All-patient/Patient-Single-Page/:p_id" element={<Providerprotect><PatientSinglePage /></Providerprotect>} />
+                        <Route path="/All-patient" element={<Providerprotect><AllPatient /></Providerprotect>} />
+                        <Route path="/Find-patient" element={<Providerprotect><FindPatient /></Providerprotect>} />
+                        <Route path="/All-Orders" element={<Providerprotect><AllOrders /></Providerprotect>} />
+                        <Route path="/Find-Orders" element={<Providerprotect><FindOrders /></Providerprotect>} />
+                        <Route path="/All-Products" element={<Providerprotect><AllProducts /></Providerprotect>} />
+                        <Route path="/Create-Products" element={<Providerprotect><CreateProducts /></Providerprotect>} />
+                        <Route path="/Add-patient" element={<Providerprotect><AddPatient /></Providerprotect>} />
+                        <Route path="/Single-Patient-Manage-order/:p_id" element={<Providerprotect><ManageOrder /></Providerprotect>} />
+                        <Route path="/Single-Product/:p_id" element={<Providerprotect><EditSingleProduct /></Providerprotect>} />
 
                         {/* lkoijuhygtfrdftgyhujikol */}
-                        <Route path="/SinglePAteintPersonalDetails" element={<PersonalInformation />} />
+                        <Route path="/SinglePAteintPersonalDetails" element={<Providerprotect><PersonalInformation /></Providerprotect>} />
 
 
                     </Routes>

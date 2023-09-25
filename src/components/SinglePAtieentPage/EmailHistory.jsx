@@ -293,7 +293,7 @@ const EmailHistory = () => {
                     {PatientSData.length} total  Order History found
                   </Typography>
                   <div className="Order Page">
-                    <DataTableExtensions {...tableData}>
+                    <DataTableExtensions {...tableData} print={false}  export={false}>
                       <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                     </DataTableExtensions>
                   </div>

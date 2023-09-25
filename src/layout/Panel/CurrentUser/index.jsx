@@ -37,19 +37,29 @@ const CurrentUser = () => {
 
 
     const Logout = async () => {
-        const response = await LogoutProfile();
-        console.log(response);
+        // Ask for confirmation
+        const confirmLogout = window.confirm("Are you sure you want to log out?");
 
-        if (response && response.message === "Successfully logged out") {
-            alert("Successfully Logout!");
+        if (confirmLogout) {
+            const response = await LogoutProfile();
+            console.log(response);
 
-            // Remove the token from local storage
-            // localStorage.removeItem("clinic");
-            navigate('/Login');
+            if (response && response.message === "Successfully logged out") {
+                alert("Successfully Logout!");
+
+                localStorage.removeItem("provider");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            } else {
+                alert("Logout failed. Please try again.");
+            }
         } else {
-            alert("Logout failed. Please try again.");
+            // The user cancelled the logout, do nothing or provide feedback if needed
+            console.log("Logout cancelled by the user.");
         }
     };
+
 
 
     return (
@@ -66,9 +76,9 @@ const CurrentUser = () => {
                         <button>
                             <Link to="/settings/ChangePassword"> <i className="icon icon-circle-user" /> Change Password</Link>
                         </button>
-                        
-                        <button>
-                            <i className="icon icon-logout" onClick={Logout} /> Logout
+
+                        <button onClick={Logout} >
+                            <i className="icon icon-logout" /> Logout
                         </button>
                     </Menu>
                 </div>

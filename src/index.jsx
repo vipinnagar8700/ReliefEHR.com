@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from '@store/store'
-import {BrowserRouter} from 'react-router-dom';
-import {InterfaceContextAPI} from '@contexts/interfaceContext';
+import { BrowserRouter } from 'react-router-dom';
+import { InterfaceContextAPI } from '@contexts/interfaceContext';
 
 // fonts
 import '@fontsource/rubik/300.css';
@@ -16,10 +16,12 @@ import '@fonts/icomoon/icomoon.woff'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
-        <BrowserRouter>
-            <InterfaceContextAPI>
-                <App/>
-            </InterfaceContextAPI>
-        </BrowserRouter>
+
+            <BrowserRouter>
+                <InterfaceContextAPI>
+                    <App />
+                </InterfaceContextAPI>
+            </BrowserRouter>
+
     </Provider>
 );

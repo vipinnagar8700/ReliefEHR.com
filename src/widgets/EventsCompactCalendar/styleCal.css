@@ -1,0 +1,6 @@
+/* Style today's date with a background color */
+.react-calendar__tile--now {
+    background-color: #0e100f; /* Set your desired background color */
+    color: #dd1616;
+    font-weight: bold; /* Set text color if needed */
+  }

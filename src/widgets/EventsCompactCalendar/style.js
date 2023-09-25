@@ -72,6 +72,7 @@ export const EventsCalendar = styled.div`
     &__tile {
       font-size: ${textSizes['14']};
       font-family: ${fonts.accent};
+      background-color:green;
 
       .bar {
         opacity: 0;

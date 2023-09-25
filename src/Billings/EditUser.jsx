@@ -3,6 +3,7 @@ import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
 import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box } from '@mui/material';
 // components\
+import { useSnackbar } from 'notistack';
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
@@ -55,6 +56,7 @@ const schema = yup.object().shape({
 });
 
 const EditUser = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const [AA, setAA] = useState(false)
 
@@ -144,18 +146,31 @@ const EditUser = ({ type }) => {
         e.preventDefault();
 
         try {
-            console.log(p_id,username, name, lname, email, phone, password, "qqqqqqqqqqqqqqqqqqqqqqqq")
-            const result = updateUserData(p_id,username, name, lname, email, phone, password,);
+            console.log(p_id, username, name, lname, email, phone, password, "qqqqqqqqqqqqqqqqqqqqqqqq")
+            const result = updateUserData(p_id, username, name, lname, email, phone, password,);
 
             result.then((data) => {
                 console.log(data, "thtrtrer;ojgsrdbehx");
-                alert("Data Successfully Updated");
+                // alert("Data Successfully Updated");
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 // Navigate('/dashboard_a')
 
             })
             console.log(result, "Data Updated Successfully");
         } catch (error) {
-            console.error("Error occurred while updating data:", error);
+            enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
         }
     };
 
@@ -186,7 +201,7 @@ const EditUser = ({ type }) => {
                                                         }} fullWidth name="Username" />
 
                                                     </Grid>
-                                                  
+
 
                                                     <Grid item xs={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>First Name</InputLabel>
@@ -233,16 +248,8 @@ const EditUser = ({ type }) => {
                                                         }} fullWidth />
 
                                                     </Grid>
-                                                    
-                                                    
-                                                   
 
-
-
-
-
-
-                                                    <Grid item sx={6} mt={2}>
+                                                    <Grid item sx={6} mt={2} mb={2}>
                                                         <button style={{ width: '150px', backgroundColor: '#2BAA27', height: '40px', borderRadius: 4, color: 'white', fontWeight: 600 }} handler={notify} type="submit" bgcolor="success" onClick={handleUpdate} variant="contained">Save Changes</button>
                                                     </Grid>
                                                 </Grid>

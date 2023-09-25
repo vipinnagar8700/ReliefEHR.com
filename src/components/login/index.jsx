@@ -52,10 +52,13 @@ const Login = () => {
 
         // Check the user's role and navigate accordingly
         if (userRole === "provider") {
-          localStorage.setItem("Provider", JSON.stringify(data.user));
-          Cookies.set("Provider", data.token, { expires: 7 });
+          localStorage.setItem("provider", JSON.stringify(data.user));
+          Cookies.set("provider", data.token, { expires: 7 });
           alert("Successfully Logged In as a Provider!");
           navigate('/Provider-Dashboard');
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
         } else {
           alert("You do not have the required role to log in!");
         }
@@ -79,7 +82,7 @@ const Login = () => {
   };
   return (
     // <Container maxWidth="lg" >
-    <Box sx={{ margin: 10 }}>
+    <Box sx={{ margin: "90px 190px " }}>
       <Card sx={{ border: 0 }} >
         <Grid container alignItems="center">
           <Grid item lg={6}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router';
 import Page from '@layout/Page';
+import { useSnackbar } from 'notistack';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -35,6 +36,7 @@ const Style = {
 
 
 const PatientFiles = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [Sec, setSec] = useState(false)
   const [selectedTab, setSelectedTab] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -54,9 +56,9 @@ const PatientFiles = () => {
   });
 
 
-  
 
-   useEffect(() => {
+
+  useEffect(() => {
     const fetchTemplateData = async () => {
       try {
         const data = await GetAllPatientFiles();
@@ -99,16 +101,16 @@ const PatientFiles = () => {
       selector: (row) => {
         const createdAt = new Date(row.created_at);
         const options = {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
         };
         return createdAt.toLocaleString('en-US', options);
-    },
+      },
       sortable: true,
     },
 
@@ -203,7 +205,14 @@ const PatientFiles = () => {
 
     ADDPatientFiles(names, fileI, isVisibleToPatient).then((response) => {
       console.log('API response:', response.messege);
-      alert(response.messege)
+      // alert(response.messege)
+      enqueueSnackbar(response.messege, {
+        variant: 'success',
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'right',
+        },
+      });
       handleCloses()
       setCount(count + 1)
       // Handle the API response here, such as displaying a success message or updating UI
@@ -220,18 +229,33 @@ const PatientFiles = () => {
       DeleteData.then((result) => {
         // Handle the result if needed (e.g., show a success message)
         console.log(result);
-        alert("Data Successfully Deleted!")
+        // alert("Data Successfully Deleted!")
+        enqueueSnackbar("Data Successfully Deleted!", {
+          variant: 'success',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        });
         setCount(count + 1)
       })
-        .catch((error) => {
+        .catch((error) => 
           // Handle errors (e.g., show an error message)
-          console.error('Error deleting data:', error);
-        });
-    }
+          enqueueSnackbar(error, "Something Went Wrong try again!", {
+            variant: 'error',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
 
+            }
+          }
+          ))
+
+
+    }
   }
 
- 
+
 
 
   return (
@@ -310,7 +334,7 @@ const PatientFiles = () => {
           </Box>
         </Box>
       }
-      
+
       <Grid container>
 
         <Grid items xs={12}>
@@ -329,7 +353,7 @@ const PatientFiles = () => {
                     {PatientSData.length} total  Exiting Files found
                   </Typography>
                   <div className="Order Page">
-                    <DataTableExtensions {...tableData}>
+                    <DataTableExtensions {...tableData} print={false}  export={false}>
                       <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                     </DataTableExtensions>
                   </div>

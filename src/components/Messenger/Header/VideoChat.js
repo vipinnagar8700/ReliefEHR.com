@@ -5,7 +5,7 @@ import Room from "./Room";
 
 
 
-const VideoChat = () => {
+const VideoChat = ({ user }) => {
   const [username, setUsername] = useState("");
   const [roomName, setRoomName] = useState("");
   const [room, setRoom] = useState(null);
@@ -87,6 +87,7 @@ const VideoChat = () => {
   } else {
     render = (
       <Lobby
+        user={user}
         username={username}
         roomName={roomName}
         handleUsernameChange={handleUsernameChange}

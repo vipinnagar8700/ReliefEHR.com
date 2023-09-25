@@ -1,13 +1,13 @@
 // styled components
 import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
-import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { Container, Grid, Button, TextField, InputLabel, option, Box } from '@mui/material';
 // components\
+import { useSnackbar } from 'notistack';
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
 import Btn from '@ui/Btn';
-import CustomSelect from '@ui/Select';
 import DateInput from '@components/MaskedInputs/Date';
 import Phone from '@components/MaskedInputs/Phone';
 // styled components
@@ -55,7 +55,8 @@ const schema = yup.object().shape({
 });
 
 const EditSecondaryLoaction = ({ type }) => {
-    const [selectedMenuItem, setSelectedMenuItem] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
+    const [selectedoption, setselectedoption] = useState('');
 
 
     const navigate = useNavigate()
@@ -146,12 +147,24 @@ const EditSecondaryLoaction = ({ type }) => {
 
             result.then((data) => {
                 console.log(data.messege, "thtrtrer;ojgsrdbehx");
-                alert(data.messege);
-
+                // alert(data.messege);
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             })
             console.log(result, "Data Updated Successfully");
         } catch (error) {
-            console.error("Error occurred while updating data:", error);
+            enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
         }
     };
 
@@ -212,7 +225,7 @@ const EditSecondaryLoaction = ({ type }) => {
                                                     <Grid item xs={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Discount Type</InputLabel>
 
-                                                        <Select id="patient_add_referringDoctorState" labelId="dropdown-label"
+                                                        <select id="patient_add_referringDoctorState" style={{padding:10,width:'100%',borderRadius:3}} labelId="dropdown-label"
                                                             fullWidth value={discountType} onChange={(e) => {
                                                                 setAA({
                                                                     ...AA, discountType: e.target.value
@@ -220,9 +233,9 @@ const EditSecondaryLoaction = ({ type }) => {
                                                             }}
                                                             size='small'
                                                             name="discountType" class="form-control">
-                                                            <MenuItem value="Flat Amount">Flat Amount</MenuItem>
-                                                            <MenuItem value="% Percentages">% Percentages</MenuItem>
-                                                        </Select>
+                                                            <option value="Flat Amount">Flat Amount</option>
+                                                            <option value="% Percentages">% Percentages</option>
+                                                        </select>
 
 
 

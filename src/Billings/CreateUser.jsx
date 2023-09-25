@@ -3,6 +3,7 @@ import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
 import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box } from '@mui/material';
 // components\
+import { useSnackbar } from 'notistack';
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
@@ -39,7 +40,7 @@ import { useNavigate } from 'react-router';
 
 
 const schema = yup.object().shape({
-    Username:yup.string().required('User name is a required field'),
+    Username: yup.string().required('User name is a required field'),
     Name: yup.string().required('Name is a required field'),
     Email: yup.string().required('Email is a required field'),
     Phone: yup.string().required('phone is a required field'),
@@ -49,6 +50,7 @@ const schema = yup.object().shape({
 
 const CreateUser = ({ type }) => {
     const navigate = useNavigate()
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
 
     // const handleChange = (event) => {
@@ -72,9 +74,9 @@ const CreateUser = ({ type }) => {
 
 
     const HandleClick = (values) => {
-        console.log("Data That we Add", values.Username, values.Name, values.Email, values.Password,values.LastName,values.Phone );
+        console.log("Data That we Add", values.Username, values.Name, values.Email, values.Password, values.LastName, values.Phone);
 
-        let token = Cookies.get('Provider');
+        let token = Cookies.get('provider');
         console.log(token, "token Mil ga");
         if (token) {
             const PatientAddData = CreateNewUser(values);
@@ -83,15 +85,35 @@ const CreateUser = ({ type }) => {
             if (PatientAddData) {
                 PatientAddData.then((data) => {
                     console.log(data.messege);
-                    alert(data.messege)
+                    // alert(data.messege)
+                    enqueueSnackbar(data.messege, {
+                        variant: 'success',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
                     // navigate('/ManageClinic/Details')
 
                 });
             } else {
-                alert("Api's Error OCCUR");
+                // alert("Api's Error OCCUR");
+                enqueueSnackbar("Something Went Wrong try again!", {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }
+                });
             }
         } else {
-            alert("Token is missing");
+            enqueueSnackbar("Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
         }
 
     };
@@ -106,7 +128,7 @@ const CreateUser = ({ type }) => {
         dirty,
     } = useFormik({
         initialValues: {
-            Username:'',
+            Username: '',
             Email: '',
             Phone: '',
             Password: '',
@@ -148,9 +170,9 @@ const CreateUser = ({ type }) => {
                                         <Container>
                                             <form onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
-                                                    
-                                                    
-                                                <Grid item xs={6}>
+
+
+                                                    <Grid item xs={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>User Name</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="User Name" size="small" name="Username" placeholder="User Name" value={values.Username} onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
@@ -178,7 +200,7 @@ const CreateUser = ({ type }) => {
                                                             touched.Phone && errors.Phone && <div style={{ color: "red" }}>{errors.Phone}</div>
                                                         }
                                                     </Grid>
-                                                    
+
                                                     <Grid item xs={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Email</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Email" size="small" value={values.Email} name="Email" placeholder="Email" fullWidth onChange={handleChange} onBlur={handleBlur} />
@@ -193,13 +215,13 @@ const CreateUser = ({ type }) => {
                                                             touched.Password && errors.Password && <div style={{ color: "red" }}>{errors.password}</div>
                                                         }
                                                     </Grid>
-                                                    
-                                                    
-
-                                                   
 
 
-                                                   
+
+
+
+
+
                                                     {/* <Grid item xs={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>State</InputLabel>
 
@@ -269,7 +291,7 @@ const CreateUser = ({ type }) => {
 
 
                                                     </Grid> */}
-                                                    
+
 
 
 

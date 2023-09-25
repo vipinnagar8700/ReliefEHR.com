@@ -8,6 +8,7 @@ import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import Box from '@mui/material/Box';
+import { useSnackbar } from 'notistack';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -28,6 +29,7 @@ import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
 
 const AllProducts = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedTab, setSelectedTab] = useState('');
     const [openModal, setOpenModal] = useState(false);
     const smallScreen = window.matchMedia('(max-width: 1038.98px)').matches;
@@ -69,13 +71,23 @@ const AllProducts = () => {
             DeleteData.then((result) => {
                 // Handle the result if needed (e.g., show a success message)
                 console.log(result.message);
-                alert(result.message)
+                // alert(result.message)
+                enqueueSnackbar(result.message, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 setCount(count + 1)
             })
-                .catch((error) => {
-                    // Handle errors (e.g., show an error message)
-                    console.error('Error deleting data:', error);
-                });
+                .catch((error) => enqueueSnackbar(error, "Something Went Wrong try again!", {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }
+                }));
         }
 
     }
@@ -130,7 +142,7 @@ const AllProducts = () => {
                         </Link>
 
                     </button>
-                    <button style={{ width: '110px', backgroundColor: 'red', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600, marginLeft: 2 }}  >
+                    <button style={{ width: '80px', backgroundColor: 'red', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600, marginLeft: 2 }}  >
 
                         <Link to="#" onClick={e => handleDelete(row.id)}>
                             Delete
@@ -192,7 +204,7 @@ const AllProducts = () => {
                                         {PatientSData.length}  total Products found
                                     </Typography>
                                     <div className="Order Page">
-                                        <DataTableExtensions
+                                        <DataTableExtensions print={false}  export={false}
                                             {...tableData}
                                         >
                                             <DataTable

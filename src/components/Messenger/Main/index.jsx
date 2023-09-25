@@ -22,77 +22,28 @@ import useContentHeight from '@hooks/useContentHeight';
 import typing from '@assets/typing.json';
 import VidocallMain from '../Header/App';
 
-const Main = ({ user, variant }) => {
+const Main = ({ user }) => {
+    console.log(user, "KKKKKKKKKKK")
+    const variant = 'patient'
     const doctor = useSelector(state => state['messenger']['doctor']);
     const patient = useSelector(state => state['messenger']['patient']);
     const db = variant === 'patient' ? patient : doctor;
     const currentUser = user && db.find(item => item.id === user);
-
+    // console.log(currentUser, "AAAA")
     const headerRef = useRef(null);
     const footerRef = useRef(null);
     const height = useContentHeight(headerRef, footerRef);
 
-    const trackRef = useRef(null);
 
-    useEffect(() => {
-        if (trackRef.current) {
-            trackRef.current.scrollTop = trackRef.current.scrollHeight;
-        }
-    }, [db]);
-
-    useEffect(() => {
-        if (trackRef.current) {
-            trackRef.current.scrollTo(0, 0);
-        }
-    }, [user]);
 
     return (
         <Container>
             {
-                currentUser && <Header variant={variant} user={currentUser} elRef={headerRef} />
+                user && <Header variant={variant} user={user} elRef={headerRef} />
             }
-            <VidocallMain />
-            <ScrollContainer height={height}>
-                <div className="track" ref={trackRef} style={{ padding: '20px 0' }}>
-                    {
-                        db.map(item => {
-                            const uniqueDates = [...new Set(item.chatHistory.map(message => moment(message.date).format('DD.MM.YYYY')))];
-                            return (
-                                <Tab.Pane eventKey={item.id} key={item.id}>
-                                    {
-                                        uniqueDates.map(date => {
-                                            return (
-                                                <div className="group" key={`${item.id}-${date}`}>
-                                                    <GroupSeparator
-                                                        text={date === moment().format('DD.MM.YYYY') ? 'Today' : date} />
-                                                    {
-                                                        item.chatHistory.filter(message => moment(message.date).format('DD.MM.YYYY') === date)
-                                                            .map((message, i) => {
-                                                                return (
-                                                                    <Message
-                                                                        key={message.id}
-                                                                        data={message}
-                                                                        senderName={`${item.firstName} ${item.lastName}`} />
-                                                                )
-                                                            })
-                                                    }
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    {
-                                        item.isTyping &&
-                                        <Animation>
-                                            <Lottie animationData={typing} />
-                                        </Animation>
-                                    }
-                                </Tab.Pane>
-                            )
-                        })
-                    }
-                </div>
-            </ScrollContainer>
-            <Input db={variant} id={user} elRef={footerRef} />
+            {/* < VidocallMain user={user} /> */}
+
+
         </Container>
     )
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router';
 import Page from '@layout/Page';
+import { useSnackbar } from 'notistack';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -15,6 +16,7 @@ import { GetAllUSers, GetBilling, GetBillingCancel } from '@components/Api/AllAp
 
 
 const ClinicUser = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [selectedTab, setSelectedTab] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const smallScreen = window.matchMedia('(max-width: 1038.98px)').matches;
@@ -37,12 +39,25 @@ const ClinicUser = () => {
       .then((response) => {
         // Handle the response here if needed
         console.log('Invoice deleted successfully:', response.messege);
-        alert(response.messege)
+        // alert(response.messege)
+        enqueueSnackbar(response.messege, {
+          variant: 'success',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        });
         setCount(count + 1)
       })
       .catch((error) => {
         // Handle errors here
-        console.error('Error deleting invoice:', error);
+        enqueueSnackbar(error, "Something Went Wrong try again!", {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          }
+        });
       });
   };
 
@@ -138,7 +153,7 @@ const ClinicUser = () => {
 
   return (
     <>
-      <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+      <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
         <CardContent>
           <Typography sx={{ fontSize: 18, fontWeight: 400 }} color="text.secondary" gutterBottom>
             Manage Users
@@ -146,13 +161,13 @@ const ClinicUser = () => {
           <button style={{ backgroundColor: 'skyblue', height: 40, borderRadius: 8, width: '220px', color: 'white', marginBottom: 4 }} >
             <Link to="/ManageClinic/CreateUser">Create User</Link>
           </button>
-          <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+          <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1400px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
             <CardContent>
               <Typography sx={{ fontSize: 16, fontWeight: 300 }} color="text.secondary" gutterBottom>
                 {PatientSData.length} total Users found
               </Typography>
               <div className="Order Page">
-                <DataTableExtensions {...tableData}>
+                <DataTableExtensions {...tableData} print={false}  export={false}>
                   <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                 </DataTableExtensions>
               </div>

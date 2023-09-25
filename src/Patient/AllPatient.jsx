@@ -166,7 +166,7 @@ const AllPatient = () => {
                                     </Typography>
                                     <div className="Order Page">
                                         <DataTableExtensions
-                                            {...tableData}
+                                            {...tableData}   print={false}  export={false}
                                         >
                                             <DataTable
                                                 noHeader

@@ -4,6 +4,7 @@ import { HeaderContainer } from '@components/Messenger/Header/style';
 import DuoRoundedIcon from '@mui/icons-material/DuoRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import ShapeButton from '@ui/ShapeButton';
+import Url from '../../../url/Allurl'
 import Pat from '@assets/avatars/doc4.jpg';
 import { Avatar, Stack, Box, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -13,8 +14,10 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 // import Avdio from '@assets/AudioVipin.mp3'
 import Lobby from "./Lobby";
+import VidocallMain from "./App";
 
-const VideoChat = () => {
+const VideoChat = ({ user }) => {
+    console.log(user, "LLLL")
     const [open, setOpen] = useState(false);
     const [count, setCount] = useState(0);
     const [showpa, setshowpa] = useState(false)
@@ -108,8 +111,8 @@ const VideoChat = () => {
                                 height: "100%", // Make the container take up the entire height
                             }}
                         >
-                            <Avatar mt={80} sx={{ width: 200, height: 200, marginTop: 10 }} src={Pat} />
-                            <Typography variant="h6">Vipin Nagar</Typography>
+                            <Avatar mt={80} sx={{ width: 200, height: 200, marginTop: 10 }} src={`${Url}/public/uploads/images/${user?.img}`} />
+                            <Typography variant="h6">{user?.name} {user?.lname}</Typography>
                             <Typography> Video Call Connecting ...</Typography>
                             <Stack direction="row" gap={2} sx={{ textAlign: "center", marginTop: 47, marginBottom: 3 }}>
                                 <Avatar>
@@ -172,8 +175,8 @@ const VideoChat = () => {
                                 height: "100%", // Make the container take up the entire height
                             }}
                         >
-                            <Avatar mt={80} sx={{ width: 200, height: 200, marginTop: 10 }} src={Pat} />
-                            <Typography variant="h6">Vipin Nagar</Typography>
+                            <Avatar mt={80} sx={{ width: 200, height: 200, marginTop: 10 }} src={`${Url}/public/uploads/images/${user?.img}`} />
+                            <Typography variant="h6">{user?.name}{user?.lname}</Typography>
                             <Typography> Voice Call Connecting ...</Typography>
                             <Stack direction="row" gap={2} sx={{ textAlign: "center", marginTop: 47, marginBottom: 3 }}>
                                 <Avatar>
@@ -197,8 +200,8 @@ const VideoChat = () => {
             }
             <HeaderContainer>
                 <div className="main">
-                    <Avatar src={Pat} />
-                    <h3 className="title">Vipin Nagar</h3>
+                    <Avatar src={`${Url}/public/uploads/images/${user?.img}`} />
+                    <h3 className="title">{user?.name}{user?.lname}</h3>
                 </div>
                 <div className="actions">
                     <Stack direction='row' sx={{ alignItems: "center" }} gap={2}>
@@ -219,6 +222,8 @@ const VideoChat = () => {
                     </Stack>
                 </div>
             </HeaderContainer>
+            < VidocallMain user={user} />
+
         </>
     );
 };

@@ -235,7 +235,7 @@ const MostRecentAppointment = () => {
                                 {PatientSData.length} total  Patient Certification Information record found
                             </Typography>
                             <div className="Order Page">
-                                <DataTableExtensions {...tableData}>
+                                <DataTableExtensions {...tableData} print={false}  export={false}>
                                     <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                                 </DataTableExtensions>
                             </div>

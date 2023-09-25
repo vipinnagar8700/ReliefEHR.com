@@ -113,11 +113,11 @@ const ClinicActivityReport = () => {
                             <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
                                 <Grid items sx={6} md={3}>
                                     <InputLabel>Select Date</InputLabel>
-                                    <TextField size='small' type='date' />
+                                    <TextField size='small' type='date'  required/>
                                 </Grid>
                                 <Grid items sx={6} md={3}>
                                     <InputLabel>Select Date</InputLabel>
-                                    <TextField size='small' type='date' />
+                                    <TextField size='small' type='date' required/>
                                 </Grid>
                                 <Grid items sx={6} md={3}>
                                     <InputLabel>Users</InputLabel>
@@ -163,7 +163,7 @@ const ClinicActivityReport = () => {
                                         0 total records found
                                     </Typography>
                                     <div className="Order Page">
-                                        <DataTableExtensions {...tableData}>
+                                        <DataTableExtensions {...tableData}  print={false}  export={false}>
                                             <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                                         </DataTableExtensions>
                                     </div>

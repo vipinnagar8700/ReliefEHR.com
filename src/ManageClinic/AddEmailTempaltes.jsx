@@ -3,6 +3,7 @@ import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
 import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
 // components\
+import { useSnackbar } from 'notistack';
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
@@ -44,6 +45,7 @@ const schema = yup.object().shape({
 
 
 const AddEmailTempalets = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const navigate = useNavigate()
     // const handleChange = (event) => {
@@ -51,9 +53,6 @@ const AddEmailTempalets = ({ type }) => {
     // };
 
     const { notify } = useNotistack('Your changes have been successfully saved.', 'success');
-
-
-
 
     const [value, setValue] = useState('1');
 
@@ -67,19 +66,32 @@ const AddEmailTempalets = ({ type }) => {
 
 
     const HandleClick = (values) => {
-        console.log("Data That we Add", values.Name,  values.Subject, values.EmailContent, );
+        console.log("Data That we Add", values.Name, values.Subject, values.EmailContent,);
 
-            const PatientAddData = ADDEMAILTES(values);
-            console.log(PatientAddData, "Patient Add Data");
+        const PatientAddData = ADDEMAILTES(values);
+        console.log(PatientAddData, "Patient Add Data");
 
-            if (PatientAddData) {
-                PatientAddData.then((data) => {
-                    console.log(data.messege);
-                    alert(data.messege)
+        if (PatientAddData) {
+            PatientAddData.then((data) => {
+                console.log(data.messege);
+                // alert(data.messege)
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
                 });
-            } else {
-                alert("Api's Error OCCUR");
-            }
+            });
+        } else {
+            enqueueSnackbar("Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
+        }
 
     };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router';
 import Page from '@layout/Page';
+import { useSnackbar } from 'notistack';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -8,7 +9,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { InputLabel, TextField, Box, Stack, Checkbox, Select, MenuItem, Grid } from '@mui/material';
+import { InputLabel, TextField, Box, Stack, Checkbox, option, Grid } from '@mui/material';
 import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
 import { addProductesData } from '@components/Api/AllApi';
@@ -66,13 +67,14 @@ const schema = yup.object().shape({
 
 
 const PatientStatusreport = () => {
-    const [selectedTab, setSelectedTab] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
+    const [selectedTab, setselectedTab] = useState('');
     const [openModal, setOpenModal] = useState(false);
     const smallScreen = window.matchMedia('(max-width: 1038.98px)').matches;
 
     const handleModalClose = () => {
         setOpenModal(false);
-        setSelectedTab('');
+        setselectedTab('');
     };
 
     window.addEventListener('resize', () => {
@@ -93,10 +95,24 @@ const PatientStatusreport = () => {
         if (PatientAddData) {
             PatientAddData.then((data) => {
                 console.log(data);
-                alert(data.message)
+                // alert(data.message)
+                enqueueSnackbar(data.message, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             });
         } else {
-            alert("Api's Error OCCUR");
+            // alert("Api's Error OCCUR");
+            enqueueSnackbar("Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            })
         }
 
     };
@@ -150,67 +166,67 @@ const PatientStatusreport = () => {
                                         />
                                     </Grid>
                                     <Grid items sx={6} md={3}>
-                                        <Select fullWidth size='small' value={values.productCategory} onChange={handleChange} onBlur={handleBlur} name="productCategory">
-                                            <MenuItem value="Accessories">Accessories
-                                            </MenuItem>
-                                            <MenuItem value="Concentrates">Concentrates
-                                            </MenuItem>
-                                            <MenuItem value="Edibles">Edibles
-                                            </MenuItem>
-                                            <MenuItem value="Flower">Flower
-                                            </MenuItem>
-                                            <MenuItem value="Orals">Orals
-                                            </MenuItem>
-                                            <MenuItem value="Other">Other
-                                            </MenuItem>
-                                            <MenuItem value="Pre Rolls">Pre Rolls
-                                            </MenuItem>
-                                            <MenuItem value="Tinctures">Tinctures
-                                            </MenuItem>
-                                            <MenuItem value="Topicals">Topicals
-                                            </MenuItem>
-                                            <MenuItem value="Vaporizers">Vaporizers
-                                            </MenuItem>
-                                        </Select>
+                                        <select fullWidth size='small' value={values.productCategory} style={{ width: '100%', padding: '10px', borderRadius: 3 }} onChange={handleChange} onBlur={handleBlur} name="productCategory">
+                                            <option value="Accessories">Accessories
+                                            </option>
+                                            <option value="Concentrates">Concentrates
+                                            </option>
+                                            <option value="Edibles">Edibles
+                                            </option>
+                                            <option value="Flower">Flower
+                                            </option>
+                                            <option value="Orals">Orals
+                                            </option>
+                                            <option value="Other">Other
+                                            </option>
+                                            <option value="Pre Rolls">Pre Rolls
+                                            </option>
+                                            <option value="Tinctures">Tinctures
+                                            </option>
+                                            <option value="Topicals">Topicals
+                                            </option>
+                                            <option value="Vaporizers">Vaporizers
+                                            </option>
+                                        </select>
                                     </Grid>
                                     {/* <Typography>Meta Information</Typography> */}
 
                                     <Grid items sx={6} md={3}>
-                                        <Select fullWidth size='small' value={values.Species} onChange={handleChange} onBlur={handleBlur} name="Species">
-                                            <MenuItem value="Indica">Indica
-                                            </MenuItem>
-                                            <MenuItem value="Sativa">Sativa
-                                            </MenuItem>
-                                            <MenuItem value="Hybrid">Hybrid
-                                            </MenuItem>
-                                            <MenuItem value="Indica Dominant Hybrid">Indica Dominant Hybrid
-                                            </MenuItem>
-                                            <MenuItem value="Sative Dominant Hybrid">Sativa Dominant Hybrid
-                                            </MenuItem>
-                                            <MenuItem value="CBD">CBD
-                                            </MenuItem>
-                                            <MenuItem value="Blended">Blended
-                                            </MenuItem>
+                                        <select fullWidth size='small' value={values.Species} style={{ width: '100%', padding: '10px', borderRadius: 3 }} onChange={handleChange} onBlur={handleBlur} name="Species">
+                                            <option value="Indica">Indica
+                                            </option>
+                                            <option value="Sativa">Sativa
+                                            </option>
+                                            <option value="Hybrid">Hybrid
+                                            </option>
+                                            <option value="Indica Dominant Hybrid">Indica Dominant Hybrid
+                                            </option>
+                                            <option value="Sative Dominant Hybrid">Sativa Dominant Hybrid
+                                            </option>
+                                            <option value="CBD">CBD
+                                            </option>
+                                            <option value="Blended">Blended
+                                            </option>
 
-                                        </Select>
+                                        </select>
                                     </Grid>
                                     {/* <InputLabel>Method of use</InputLabel> */}
 
                                     <Grid items sx={6} md={3}>
-                                        <Select fullWidth size='small' value={values.method} onChange={handleChange} onBlur={handleBlur} name="method">
-                                            <MenuItem value="Oral">Oral
-                                            </MenuItem>
-                                            <MenuItem value="Sublingual">Sublingual
-                                            </MenuItem>
-                                            <MenuItem value="Topical">Topical
-                                            </MenuItem>
-                                            <MenuItem value="Inhale">Inhale
-                                            </MenuItem>
-                                            <MenuItem value="Rectal">Rectal
-                                            </MenuItem>
+                                        <select fullWidth size='small' value={values.method} style={{ width: '100%', padding: '10px', borderRadius: 3 }} onChange={handleChange} onBlur={handleBlur} name="method">
+                                            <option value="Oral">Oral
+                                            </option>
+                                            <option value="Sublingual">Sublingual
+                                            </option>
+                                            <option value="Topical">Topical
+                                            </option>
+                                            <option value="Inhale">Inhale
+                                            </option>
+                                            <option value="Rectal">Rectal
+                                            </option>
 
 
-                                        </Select>
+                                        </select>
                                     </Grid>
                                     <Grid items sx={6} md={3}>
                                         <TextField label="Brand / Company" fullWidth size="small" value={values.brand} onChange={handleChange} onBlur={handleBlur} name="brand" />
@@ -236,18 +252,18 @@ const PatientStatusreport = () => {
 
                                     </Grid>
                                     <Grid items sx={6} md={3}>
-                                        <Select label="Unit Type" fullWidth size='small' value={values.UnitType} onChange={handleChange} onBlur={handleBlur} name="UnitType">
-                                            <MenuItem value="Packages">Package(s)
-                                            </MenuItem>
-                                            <MenuItem value="Capsules">Capsule(s)
-                                            </MenuItem>
-                                            <MenuItem value="Cartridges">Cartridge(s)
-                                            </MenuItem>
-                                            <MenuItem value="Edibles">edible(s)
-                                            </MenuItem>
-                                            <MenuItem value="Boxes">Box(es)
-                                            </MenuItem>
-                                        </Select>
+                                        <select label="Unit Type" fullWidth size='small' style={{ width: '100%', padding: '10px', borderRadius: 3 }} value={values.UnitType} onChange={handleChange} onBlur={handleBlur} name="UnitType">
+                                            <option value="Packages">Package(s)
+                                            </option>
+                                            <option value="Capsules">Capsule(s)
+                                            </option>
+                                            <option value="Cartridges">Cartridge(s)
+                                            </option>
+                                            <option value="Edibles">edible(s)
+                                            </option>
+                                            <option value="Boxes">Box(es)
+                                            </option>
+                                        </select>
                                     </Grid>
                                     {/* <InputLabel>Inventory & POS Information </InputLabel> */}
 
@@ -355,7 +371,7 @@ const PatientStatusreport = () => {
                                         <TextField label="Valencene %" fullWidth size="small" value={values.valencene} onChange={handleChange} onBlur={handleBlur} name="valencene" />
                                     </Grid>
                                     <Grid items sx={6} md={3}>
-                                        <TextField type='file' fullWidth size="small" label="product Image" name="IMG" onChange={(event) => {
+                                        <TextField type='file' fullWidth size="small" name="IMG" onChange={(event) => {
                                             const file = event.target.files[0];
                                             if (file) {
                                                 setFieldValue("IMG", file);
@@ -364,7 +380,7 @@ const PatientStatusreport = () => {
                                     </Grid>
                                 </Grid>
 
-                                <button style={{ border: '0px solid red', borderRadius: 4, backgroundColor: 'green', color: 'white', padding: 10 }} onClick={handleSubmit}>
+                                <button style={{ border: '0px solid red', borderRadius: 4, backgroundColor: 'green', color: 'white', padding: 10,marginLeft:'100px',marginTop:'5px' }} onClick={handleSubmit}>
                                     Submit
                                 </button>
                             </form>

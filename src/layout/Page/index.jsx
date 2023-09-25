@@ -65,7 +65,7 @@ const Page = ({title, children, hasBadge, hasTitle = true, qty}) => {
                             </ContentTitle>
                         )
                     }
-                    {
+                    {/* {
                         isTablet &&
                         <Controls>
                             {
@@ -95,9 +95,9 @@ const Page = ({title, children, hasBadge, hasTitle = true, qty}) => {
                             </ControlWrapper>
                             <ControlWrapper>
                                 <ScaleControl/>
-                            </ControlWrapper>
+                            </ControlWrapper> 
                         </Controls>
-                    }
+                    } */}
                 </Wrapper>
                 {current ? <Grid id={layoutKey} layouts={current} desktop={device.isDesktop()}>{children}</Grid> : children}
             </Widgets>

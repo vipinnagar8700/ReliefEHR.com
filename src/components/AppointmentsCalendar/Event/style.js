@@ -1,8 +1,8 @@
-import {colors, dark, flex, light, textSizes, breakpoints, fonts} from '@styles/vars';
+import { colors, dark, flex, light, textSizes, breakpoints, fonts } from '@styles/vars';
 import styled from 'styled-components/macro';
-import {colorTypes} from '@constants/colors';
+import { colorTypes } from '@constants/colors';
 import theme from 'styled-theming';
-import {ModalContent} from '@components/ModalWindow';
+import { ModalContent } from '@components/ModalWindow';
 
 const disabled = theme => theme === 'dark' ? light.text : '#DCE2E8';
 
@@ -62,13 +62,13 @@ export const StyledEvent = styled.div`
     height: calc(100% - 1px);
     mix-blend-mode: luminosity;
     background-color: ${theme('theme', {
-      light: light.bodyBg,
-      dark: dark.bodyBg
-    })};
+  light: light.bodyBg,
+  dark: dark.bodyBg
+})};
     opacity: ${theme('theme', {
-      light: 1,
-      dark: 0.8
-    })};
+  light: 1,
+  dark: 0.8
+})};
     display: ${props => props.type !== 'disabled' && props.type !== 'available' ? 'block' : 'none'};
   }
 
@@ -84,11 +84,10 @@ export const StyledEvent = styled.div`
   .event-title {
     font-size: ${textSizes['14']};
     position: relative;
+    color:green;
     z-index: 2;
-    color: ${theme('theme', {
-      light: light.text,
-      dark: '#fff'
-    })};
+   
+})};
     line-height: 20px;
   }
 

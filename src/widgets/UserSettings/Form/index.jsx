@@ -3,6 +3,7 @@ import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
 import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box, Stack, } from '@mui/material';
 // components
+import { useSnackbar } from 'notistack';
 import DropFiles from '@components/DropFiles';
 import Btn from '@ui/Btn';
 import CustomSelect from '@ui/Select';
@@ -23,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Form = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -71,21 +73,34 @@ const Form = ({ type }) => {
                 SignatureDataToUpdate = editProfile.signature;
             }
 
-            const result = UpdateProfileData(name,  lname, email, address, address2, city, dob, phone, pincode, state,imageDataToUpdate,  about
+            const result = UpdateProfileData(name, lname, email, address, address2, city, dob, phone, pincode, state, imageDataToUpdate, about
             );
 
             result.then((data) => {
                 console.log(data, "thtrtrer;ojgsrdbehx");
-                alert(data.message);
+                // alert(data.message);
+                enqueueSnackbar(data.message, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 // navigate('/Provider-Dashboard')
 
             })
             console.log(result, "Data Updated Successfully");
             //   history.push("/dashboard_a");
         } catch (error) {
-            console.error("Error occurred while updating data:", error);
-        }
-    };
+            enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
+        };
+    }
 
 
 
@@ -103,7 +118,7 @@ const Form = ({ type }) => {
                             })
                         }} fullWidth />
                     </Grid>
-                   
+
                     <Grid item xs={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Last Name</InputLabel>
                         <TextField id={`${type}ProfileLastName`} title="Last Name" size="small" value={lname} onChange={(e) => {
@@ -121,74 +136,82 @@ const Form = ({ type }) => {
                         }} placeholder="Email" fullWidth />
                     </Grid>
                     <Grid item xs={6}>
-                        <InputLabel htmlFor={`${type}ProfileBirthday`}>State</InputLabel>
+                  <InputLabel htmlFor={`${type}ProfileBirthday`}>State</InputLabel>
 
-                        <Select id="patient_add_referringDoctorState" labelId="dropdown-label"
-                            fullWidth value={state} onChange={(e) => {
-                                setEditProfile({
-                                    ...editProfile, state: e.target.value
-                                })
-                            }}
-                            size='small'
-                            name="state" class="form-control">
-                            <MenuItem value="AL">Alabama</MenuItem>
-                            <MenuItem value="AK">Alaska</MenuItem>
-                            <MenuItem value="AZ">Arizona</MenuItem>
-                            <MenuItem value="AR">Arkansas</MenuItem>
-                            <MenuItem value="CA">California</MenuItem>
-                            <MenuItem value="CO">Colorado</MenuItem>
-                            <MenuItem value="CT">Connecticut</MenuItem>
-                            <MenuItem value="DE">Delaware</MenuItem>
-                            <MenuItem value="DC">District Of Columbia</MenuItem>
-                            <MenuItem value="FL">Florida</MenuItem>
-                            <MenuItem value="GA">Georgia</MenuItem>
-                            <MenuItem value="HI">Hawaii</MenuItem>
-                            <MenuItem value="ID">Idaho</MenuItem>
-                            <MenuItem value="IL">Illinois</MenuItem>
-                            <MenuItem value="IN">Indiana</MenuItem>
-                            <MenuItem value="IA">Iowa</MenuItem>
-                            <MenuItem value="KS">Kansas</MenuItem>
-                            <MenuItem value="KY">Kentucky</MenuItem>
-                            <MenuItem value="LA">Louisiana</MenuItem>
-                            <MenuItem value="ME">Maine</MenuItem>
-                            <MenuItem value="MD">Maryland</MenuItem>
-                            <MenuItem value="MA">Massachusetts</MenuItem>
-                            <MenuItem value="MI">Michigan</MenuItem>
-                            <MenuItem value="MN">Minnesota</MenuItem>
-                            <MenuItem value="MS">Mississippi</MenuItem>
-                            <MenuItem value="MO">Missouri</MenuItem>
-                            <MenuItem value="MT">Montana</MenuItem>
-                            <MenuItem value="NE">Nebraska</MenuItem>
-                            <MenuItem value="NV">Nevada</MenuItem>
-                            <MenuItem value="NH">New Hampshire</MenuItem>
-                            <MenuItem value="NJ">New Jersey</MenuItem>
-                            <MenuItem value="NM">New Mexico</MenuItem>
-                            <MenuItem value="NY">New York</MenuItem>
-                            <MenuItem value="NC">North Carolina</MenuItem>
-                            <MenuItem value="ND">North Dakota</MenuItem>
-                            <MenuItem value="OH">Ohio</MenuItem>
-                            <MenuItem value="OK">Oklahoma</MenuItem>
-                            <MenuItem value="OR">Oregon</MenuItem>
-                            <MenuItem value="PA">Pennsylvania</MenuItem>
-                            <MenuItem value="PR">Puerto Rico</MenuItem>
-                            <MenuItem value="RI">Rhode Island</MenuItem>
-                            <MenuItem value="SC">South Carolina</MenuItem>
-                            <MenuItem value="SD">South Dakota</MenuItem>
-                            <MenuItem value="TN">Tennessee</MenuItem>
-                            <MenuItem value="TX">Texas</MenuItem>
-                            <MenuItem value="UT">Utah</MenuItem>
-                            <MenuItem value="VT">Vermont</MenuItem>
-                            <MenuItem value="VI">Virgin Islands</MenuItem>
-                            <MenuItem value="VA">Virginia</MenuItem>
-                            <MenuItem value="WA">Washington</MenuItem>
-                            <MenuItem value="WV">West Virginia</MenuItem>
-                            <MenuItem value="WI">Wisconsin</MenuItem>
-                            <MenuItem value="WY">Wyoming</MenuItem>
-                        </Select>
+                  <select id="patient_add_referringDoctorState" style={{
+                    maxWidth: '100%', // Use a percentage for maximum width
+                    padding: '10px',
+                    fontSize: '15px',
+                    borderRadius: '4px',
+                    minWidth: '100px', // Use a minimum width that fits your content
+                    width: '100%',
+                  }} labelId="dropdown-label"
+                    fullWidth
+                    size='small'
+                    value={state} onChange={(e) => {
+                        setEditProfile({
+                        ...editProfile, state: e.target.value
+                      })
+                    }}
+                    name="State" class="form-control">
+                    <option value="">Choose State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="PR">Puerto Rico</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VI">Virgin Islands</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
 
 
-
-                    </Grid>
+                </Grid>
                     <Grid item xs={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>City</InputLabel>
                         <TextField id={`${type}ProfileLastName`} title="Pincode" size="small" value={city} onChange={(e) => {
@@ -251,7 +274,7 @@ const Form = ({ type }) => {
                             })
                         }} fullWidth />
                     </Grid>
-                    
+
                     <Grid item xs={6}>
                         <InputLabel htmlFor="clinicLogo">My Avatar</InputLabel>
 
@@ -264,7 +287,7 @@ const Form = ({ type }) => {
                                 />
                             </Box>
 
-                            <Box sx={{ marginLeft:20,width: 40, height: 40 }}>
+                            <Box sx={{ marginLeft: 20, width: 40, height: 40 }}>
                                 {editProfile.img && (
                                     <img
                                         style={{ borderRadius: 5, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -277,9 +300,9 @@ const Form = ({ type }) => {
 
 
                     </Grid>
-                   
 
-                   
+
+
                     {type === 'patient' && (
                         <>
 

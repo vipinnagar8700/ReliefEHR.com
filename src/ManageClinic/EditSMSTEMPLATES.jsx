@@ -3,6 +3,7 @@ import { StyledForm } from '@widgets/UserSettings/style';
 import { Input } from '@ui/Field';
 import { Container, Grid, Button, TextField, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
 // components\
+import { useSnackbar } from 'notistack';
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import DropFiles from '@components/DropFiles';
@@ -39,6 +40,7 @@ import { useNavigate, useParams } from 'react-router';
 
 
 const EditSMSTempalets = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const navigate = useNavigate()
     // const handleChange = (event) => {
@@ -90,12 +92,25 @@ const EditSMSTempalets = ({ type }) => {
 
             result.then((data) => {
                 console.log(data.messege, "thtrtrer;ojgsrdbehx");
-                alert(data.messege);
+                // alert(data.messege);
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                      vertical: 'top',
+                      horizontal: 'right',
+                    },
+                  });
 
             })
             console.log(result, "Data Updated Successfully");
         } catch (error) {
-            console.error("Error occurred while updating data:", error);
+            enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                  vertical: 'top',
+                  horizontal: 'right',
+                }
+              });
         }
     };
 

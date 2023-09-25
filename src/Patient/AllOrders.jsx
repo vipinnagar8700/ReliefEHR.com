@@ -70,7 +70,7 @@ const AllOrders = () => {
 
         {
             name: 'Patient Name',
-            selector: (row) => row.name,
+            selector: (row) => row.name + row.namee,
             sortable: true,
         },
         {
@@ -143,7 +143,8 @@ const AllOrders = () => {
 
     const data = PatientSData.map((item) => ({
         id: item?.order_id || '',
-        name: item?.patient?.[0]?.name || '',
+        name: item?.patient?.name || '',
+        namee: item?.patient?.lname || '',
         mname: item?.total_amount      || '',
         lname: item?.status || '',
         city: item?.city || '',
@@ -177,7 +178,7 @@ const AllOrders = () => {
                                        {PatientSData.length}  total Orders found
                                     </Typography>
                                     <div className="Order Page">
-                                        <DataTableExtensions
+                                        <DataTableExtensions print={false}  export={false}
                                             {...tableData}
                                         >
                                             <DataTable

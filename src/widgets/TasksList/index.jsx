@@ -21,6 +21,7 @@ import Widget from '@components/Widget';
 import WidgetHeader from '@components/Widget/WidgetHeader';
 import { Navbar } from '@components/Widget/style';
 import Btn from '@ui/Btn'
+import { useSnackbar } from 'notistack';
 import TodosLegend from '@components/Todos/TodosLegend';
 import AddForm from '@components/Todos/AddForm';
 import DnDLayout from '@components/Todos/DnDLayout';
@@ -38,6 +39,7 @@ const Footer = styled.div`
 `;
 
 const TasksList = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const [open, setOpen] = useState(false);
     const [filteredOptions, setFilteredOptions] = useState([]);
     const [selectedPatientId, setSelectedPatientId] = useState(null);
@@ -60,24 +62,23 @@ const TasksList = () => {
     const footerRef = useRef(null);
     const listRef = useRef(null);
     const height = useContentHeight(headerRef, footerRef);
-    const dataFromLocalStorage = localStorage.getItem("Provider");
+
+
+
+    const dataFromLocalStorage = localStorage.getItem("provider");
 
     // Parse the JSON data back to an object
     const parsedData = JSON.parse(dataFromLocalStorage);
 
     // Now, "parsedData" will contain the full object with all the properties that were originally present in the `data` object
     console.log(parsedData, "AL Data AAAAAAAAAAAAAAAAAAAAA");
-    const ValueID = [{
-        id: '1'
-    }]
-    // const ValueID = parsedData.id;
-    // const ClinicID = parsedData.company_id;
 
-    const ClinicID = [
-        {
-            id: '1'
-        }
-    ]
+    const ValueID = parsedData?.id;
+    const ClinicID = parsedData?.company_id;
+    console.log(ValueID, "This IS Clinic Single ID")
+    console.log(ClinicID, "This IS Clinic  ID")
+
+
     const [task, setTask] = useState('');
     const [category, setCategory] = useState(null);
     const dispatch = useDispatch();
@@ -99,7 +100,7 @@ const TasksList = () => {
 
 
     const handleSubmit = (event) => {
-        let token = Cookies.get("Provider");
+        let token = Cookies.get("provider");
         console.log(token, "This Is token for all Api's");
         event.preventDefault();
         var myHeaders = new Headers();
@@ -109,7 +110,7 @@ const TasksList = () => {
         var formdata = new FormData();
         console.log(selectedPatientId, "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
         formdata.append("patient_id", selectedPatientId);
-        formdata.append("provider_company_id", "1");
+        formdata.append("provider_company_id", ClinicID);
         formdata.append("type_id", type);
         formdata.append("start_date", startDate);
         formdata.append("end_date", startDate);
@@ -127,9 +128,22 @@ const TasksList = () => {
             .then((res) => res.json())
             .then((json) => {
                 console.log(json, "anjkhgdchjm");
-                alert(json.messege)
+                // alert(json.messege)
+                enqueueSnackbar(json.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             })
-            .catch((e) => console.log(e));
+            .catch((error) => enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            }));
 
     };
 
@@ -161,7 +175,7 @@ const TasksList = () => {
                         console.log(data.results, "AAAAAAAAAAAAAA");
                         setFilteredOptions(data.results)
                     } else {
-                        console.log(Filerpatient.results?.[0]?.name, "AAAAAAAAAAAAAA");
+                        console.log(Filerpatient.results?.name, "AAAAAAAAAAAAAA");
                         setFilteredOptions(Filerpatient.results)
                         console.log(Filerpatient.results, "UUUUUUUUUUUUUUUuu")
                     }
@@ -264,7 +278,7 @@ const TasksList = () => {
                         const inputDate = e.target.value;
                         setStartDate(inputDate);
                     }}
-                    type="date"
+                    type="datetime-local"
 
                     placeholder="Select Start Date"
                     fullWidth size="small"
@@ -278,7 +292,7 @@ const TasksList = () => {
                         const inputDate = e.target.value;
                         setEndDate(inputDate)
                     }}
-                    type="date"
+                    type="datetime-local"
 
                     placeholder="Select End Date"
                     fullWidth size="small"

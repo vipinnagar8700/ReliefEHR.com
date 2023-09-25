@@ -73,7 +73,7 @@ const FindPatient = ({ type }) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!formData.name && !formData.email && !formData.phone &&  !formData.lname && !formData.gender && !formData.dob && !formData.registry_id) {
+        if (!formData.name && !formData.email && !formData.phone && !formData.lname && !formData.gender && !formData.dob && !formData.registry_id) {
             setSearchAttempted(true); // Set search attempt to true if no search values entered
             return;
         }
@@ -166,8 +166,8 @@ const FindPatient = ({ type }) => {
 
     return (
         <>
-        <Sidebar/>
-        <Panel/>
+            <Sidebar />
+            <Panel />
             <Box mt={4}>
                 <Widget >
                     <Tab.Container defaultActiveKey="patient" transition={true}>
@@ -196,7 +196,7 @@ const FindPatient = ({ type }) => {
                                                             onChange={handleChange}
                                                         />
                                                     </Grid>
-                                                    
+
                                                     <Grid item xs={6}>
                                                         <InputLabel htmlFor="lname">Last Name</InputLabel>
                                                         <TextField
@@ -261,7 +261,7 @@ const FindPatient = ({ type }) => {
                                                             onChange={handleChange}
                                                         />
                                                     </Grid>
-                                                    
+
                                                     <Grid item xs={6}>
                                                         <InputLabel htmlFor="registry_id">OMMU Registry ID</InputLabel>
                                                         <TextField
@@ -306,7 +306,7 @@ const FindPatient = ({ type }) => {
             </Box>
             {searchAttempted && !formData.name && !formData.email && !formData.phone && !formData.mname && !formData.lname && !formData.gender && !formData.dob && !formData.referring_doc && !formData.registry_id && (
                 <Box mt={2}>
-                    <Typography variant="body1" sx={{justifyContent:'center',color:'red',textAlign:'center'}}>Enter values to search for patients.</Typography>
+                    <Typography variant="body1" sx={{ justifyContent: 'center', color: 'red', textAlign: 'center' }}>Enter values to search for patients.</Typography>
                 </Box>
             )}
             {count > 0 ? (
@@ -317,7 +317,7 @@ const FindPatient = ({ type }) => {
                                 {count} total Patient found
                             </Typography>
                             <div className="Order Page">
-                                <DataTableExtensions {...tableData}>
+                                <DataTableExtensions {...tableData} export={false}   print={false}>
                                     <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                                 </DataTableExtensions>
                             </div>

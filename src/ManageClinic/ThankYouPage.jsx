@@ -16,13 +16,9 @@ import { Grid, Stack, TextField, InputLabel, Box, MenuItem, Select } from '@mui/
 
 
 const ThankYouPage = () => {
-    const [Sec, setSec] = useState(false)
     const [selectedTab, setSelectedTab] = useState('');
     const [openModal, setOpenModal] = useState(false);
     const smallScreen = window.matchMedia('(max-width: 1038.98px)').matches;
-    const [PatientSData, setPatientSData] = useState([])
-    const [count, setCount] = useState(0)
-    const [post, setPost] = useState(false);
     const [selectedName, setSelectedName] = useState('');
     const handleModalClose = () => {
         setOpenModal(false);
@@ -36,32 +32,8 @@ const ThankYouPage = () => {
     });
 
 
-    useEffect(() => {
-        handleDeleteInvoice()
-    }, [])
 
-
-
-    const handleDeleteInvoice = () => {
-        let EditData = GEtSingleCliniocShedule();
-        console.log(EditData)
-        if (EditData) {
-            EditData.then((data) => {
-                console.log(data, "HHHHHHHHHHHHHHHHHHHHHHHHHHH1")
-                setSec(data.result)
-            })
-        }
-    };
-    console.log(Sec, "AHGFSXDCFVGBHJNKMLJHGFDSDFGVHBNJ")
-
-    let doctor_id = Sec && Sec?.doctor_id;
-    let content = Sec && Sec?.content;
-    let stop = Sec && Sec?.stop;
-    let id = Sec && Sec?.id;
-    console.log(content,'UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUuu')
-
-
-   
+  
 
 
 
@@ -69,67 +41,21 @@ const ThankYouPage = () => {
 
 
 
+    
 
 
 
 
 
-
-    const handleUpdate = (e) => {
-
-        e.preventDefault();
-
-        try {
-            console.log( content)
-            const result = UPdateCLincicShedule( content
-            );
-
-            result.then((data) => {
-                console.log(data, "thtrtrer;ojgsrdbehx");
-                alert(data.messege);
-                setCount(count + 1)
-                // Navigate('/dashboard_a')
-
-            })
-            console.log(result, "Data Updated Successfully");
-        } catch (error) {
-            console.error("Error occurred while updating data:", error);
-        }
-    };
-
-
-    const handleNameChange = (event) => {
-        setSelectedName(event.target.value);
-    };
-
-    useEffect(() => {
-
-        const ALLDOC = GetAllUSers()
-        if (ALLDOC) {
-            ALLDOC.then((data) => {
-                console.log(data?.result, "ALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLlll")
-                setPost(data?.result)
-            })
-        }
-
-
-
-
-    }, [])
-
-
-
-
-    console.log(post, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhhh")
 
     return (
         <>
 
-            <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+            <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                 <CardContent>
 
 
-                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1400px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
                         <CardContent>
 
                             <div className="Order Page">
@@ -152,17 +78,12 @@ const ThankYouPage = () => {
                                                     margin="normal"
                                                     size='small'
                                                     row={6}
-                                                    value={content} onChange={(e) => {
-                                                        setSec({
-                                                            ...Sec, content: e.target.value
-                                                        })
-                                                    }}
                                                 // Add any other props you want to customize the TextField
                                                 />
                                                 <Grid container>
                                                     <Grid item xs={12}>
                                                         <Stack mt={1}>
-                                                            <button p={2} style={{ width: '150px', backgroundColor: '#2BAA27', height: '40px', borderRadius: 4, color: 'white', fontWeight: 400 }} variant="contained" color="success" onClick={handleUpdate} sx={{ width: '100%' }}>Save Changes</button>
+                                                            <button p={2} style={{ width: '150px', backgroundColor: '#2BAA27', height: '40px', borderRadius: 4, color: 'white', fontWeight: 400 }} variant="contained" color="success" sx={{ width: '100%' }}>Save Changes</button>
                                                         </Stack>
                                                     </Grid>
 

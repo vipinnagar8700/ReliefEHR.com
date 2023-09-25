@@ -1,72 +1,72 @@
 import Cookies from "js-cookie";
-
+import Url from '../../url/Allurl'
 // Retrieve the data from LocalStorage
 const dataFromLocalStorage = localStorage.getItem("provider");
 
 // Parse the JSON data back to an object
-// const parsedData = JSON.parse(dataFromLocalStorage);
+const parsedData = JSON.parse(dataFromLocalStorage);
 
-
-const parsedData = {
-    "id": 744,
-    "prefix": null,
-    "name": "provider hhhh",
-    "lname": null,
-    "mname": null,
-    "role": "provider",
-    "username": null,
-    "email": "provider@gmail.com",
-    "company_id": 1,
-    "clinic_id": null,
-    "doctor_id": null,
-    "img": null,
-    "address": null,
-    "address2": null,
-    "email_verified_at": null,
-    "phone": 5050505051,
-    "gender": null,
-    "dob": null,
-    "about": null,
-    "signature": null,
-    "city": null,
-    "state": null,
-    "pincode": null,
-    "emergency": null,
-    "referring_doc": null,
-    "doc_license": null,
-    "doctor_state": null,
-    "doctor_phone": null,
-    "social_security": null,
-    "registry_id": null,
-    "prefername": null,
-    "rating": null,
-    "status": "deactive",
-    "security_group": null,
-    "appointment_color": null,
-    "account_enabled": null,
-    "accepts_ppointments": null,
-    "document_signatory": null,
-    "created_at": "2023-08-07T04:53:15.000000Z",
-    "updated_at": "2023-08-21T07:29:38.000000Z",
-    "last_login": "2023-08-21 07:29:38",
-    "company": [
-        {
-            "id": 1,
-            "company_name": "dipanshutech pvt ltd.",
-            "email": "sadnand@gmail.com",
-            "phone": 1222,
-            "address": "DSFSDF",
-            "state": "PATNA",
-            "postal_code": "231",
-            "timezone": "11",
-            "free_delivery": "yes",
-            "in_store_pickup": "yes",
-            "flate_rate": "no",
-            "created_at": "2023-07-24T09:10:30.000000Z",
-            "updated_at": "2023-08-14T05:16:32.000000Z"
-        }
-    ]
-}
+console.log(parsedData, "LLLL")
+// const parsedData = {
+//     "id": 744,
+//     "prefix": null,
+//     "name": "provider hhhh",
+//     "lname": null,
+//     "mname": null,
+//     "role": "provider",
+//     "username": null,
+//     "email": "provider@gmail.com",
+//     "company_id": 1,
+//     "clinic_id": null,
+//     "doctor_id": null,
+//     "img": null,
+//     "address": null,
+//     "address2": null,
+//     "email_verified_at": null,
+//     "phone": 5050505051,
+//     "gender": null,
+//     "dob": null,
+//     "about": null,
+//     "signature": null,
+//     "city": null,
+//     "state": null,
+//     "pincode": null,
+//     "emergency": null,
+//     "referring_doc": null,
+//     "doc_license": null,
+//     "doctor_state": null,
+//     "doctor_phone": null,
+//     "social_security": null,
+//     "registry_id": null,
+//     "prefername": null,
+//     "rating": null,
+//     "status": "deactive",
+//     "security_group": null,
+//     "appointment_color": null,
+//     "account_enabled": null,
+//     "accepts_ppointments": null,
+//     "document_signatory": null,
+//     "created_at": "2023-08-07T04:53:15.000000Z",
+//     "updated_at": "2023-08-21T07:29:38.000000Z",
+//     "last_login": "2023-08-21 07:29:38",
+//     "company": [
+//         {
+//             "id": 1,
+//             "company_name": "dipanshutech pvt ltd.",
+//             "email": "sadnand@gmail.com",
+//             "phone": 1222,
+//             "address": "DSFSDF",
+//             "state": "PATNA",
+//             "postal_code": "231",
+//             "timezone": "11",
+//             "free_delivery": "yes",
+//             "in_store_pickup": "yes",
+//             "flate_rate": "no",
+//             "created_at": "2023-07-24T09:10:30.000000Z",
+//             "updated_at": "2023-08-14T05:16:32.000000Z"
+//         }
+//     ]
+// }
 // const parsedData = [{
 //     id:1
 // }]
@@ -87,7 +87,7 @@ export const LoginApi = (email, password) => {
         redirect: 'follow'
     };
 
-    fetch("https://medical.studiomyraa.com/api/login_action", requestOptions)
+    fetch(`${Url}/api/login_action`, requestOptions)
         .then(response => response.text())
         .then(result => {
             // Assuming the API response includes information about successful login
@@ -101,7 +101,7 @@ export const LoginApi = (email, password) => {
 
 export const ProfileApi = () => {
 
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
 
     var myHeaders = new Headers();
@@ -114,7 +114,7 @@ export const ProfileApi = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/profile", requestOptions)
+    return fetch(`${Url}/api/profile`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -125,14 +125,14 @@ export const ProfileApi = () => {
 
 console.log(parsedData, "AL Data AAAAAAAAAAAAAAAAAAAAA");
 
-const ValueID = parsedData.id;
-const ClinicID = parsedData.company_id;
+const ValueID = parsedData?.id;
+const ClinicID = parsedData?.company_id;
 console.log(ValueID, "This IS Clinic Single ID")
 console.log(ClinicID, "This IS Clinic  ID")
 
 
 export const UpdateProfileData = (name, lname, email, address, address2, city, dob, phone, pincode, state, imageDataToUpdate, about) => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -159,7 +159,7 @@ export const UpdateProfileData = (name, lname, email, address, address2, city, d
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_provider_profile", requestOptions)
+    return fetch(`${Url}/api/update_provider_profile`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -168,7 +168,7 @@ export const UpdateProfileData = (name, lname, email, address, address2, city, d
 
 
 export const LogoutProfile = () => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -180,7 +180,7 @@ export const LogoutProfile = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/logout", requestOptions)
+    return fetch(`${Url}/api/logout`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -189,7 +189,7 @@ export const LogoutProfile = () => {
 
 
 export const ViewProduct = () => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -201,7 +201,7 @@ export const ViewProduct = () => {
         redirect: 'follow'
     };
 
-    fetch("https://medical.studiomyraa.com/api/view_product", requestOptions)
+    fetch(`${Url}/api/view_product`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -212,7 +212,7 @@ export const ViewProduct = () => {
 
 export const SingleProvider = (p_id) => {
     console.log(p_id,)
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -224,7 +224,7 @@ export const SingleProvider = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/providerwise_product/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/providerwise_product/${p_id}`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -233,7 +233,7 @@ export const SingleProvider = (p_id) => {
 
 export const SingleProductProvider = (p_id) => {
     console.log(p_id,)
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -245,7 +245,7 @@ export const SingleProductProvider = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_product/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_product/${p_id}`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -255,7 +255,7 @@ export const SingleProductProvider = (p_id) => {
 
 export const AddPatientapi = (values) => {
     const { FirstName, Email, Phone, password, MiddleName, LastName, PreferName, BirthDate, Gender, Address, Address2, City, State, Pincode, Emergency, Referring_Doctor, Doctor_license, Doctor_State, Doctor_phone, SocialSecurity, Registry_id } = values;
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -292,7 +292,7 @@ export const AddPatientapi = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_patient", requestOptions)
+    return fetch(`${Url}/api/add_patient`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -300,7 +300,7 @@ export const AddPatientapi = (values) => {
 }
 
 export const GetAllPatientData = () => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -312,7 +312,7 @@ export const GetAllPatientData = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/get_patient", requestOptions)
+    return fetch(`${Url}/api/get_patient`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -321,7 +321,7 @@ export const GetAllPatientData = () => {
 
 
 export const GetAllOrdersData = () => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -333,7 +333,7 @@ export const GetAllOrdersData = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/view_order_in_provider/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/view_order_in_provider/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -343,7 +343,7 @@ export const GetAllOrdersData = () => {
 
 
 export const GetAllProductsData = () => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -355,7 +355,7 @@ export const GetAllProductsData = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/view_product", requestOptions)
+    return fetch(`${Url}/api/view_product`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -368,7 +368,7 @@ export const GetAllProductsData = () => {
 export const addProductesData = (values) => {
 
     const { productName, productCategory, Species, ProductType, method, brand, strain, amount, saleAmount, THCDosage, CbdDosage, Cbn, Unit, UnitType, PostID, RemainingAmount, Description, Ingredients, THC, CBD, CBG, CBC, THCA, THCVA, CBDA, CBGA, IMG, camphene, caryophyllene_oxide, fenchol, geraniol, alpha_humulene, alpha_phellandrene, alpha_pinene, alpha_terpinene, linalool, limonene, myrcene, ocimene, beta_caryophyllene, beta_pinene, terpineol, valencene } = values;
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -433,7 +433,7 @@ export const addProductesData = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_Product", requestOptions)
+    return fetch(`${Url}/api/add_Product`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -443,7 +443,7 @@ export const addProductesData = (values) => {
 
 export const AddTemplate = (values) => {
     const { TemplateName, Template } = values;
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -461,7 +461,7 @@ export const AddTemplate = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_template", requestOptions)
+    return fetch(`${Url}/api/add_template`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -471,7 +471,7 @@ export const AddTemplate = (values) => {
 
 export const EditTemplateer = (p_id) => {
     console.log(p_id, "A")
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -483,7 +483,7 @@ export const EditTemplateer = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_template/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_template/${p_id}`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -492,7 +492,7 @@ export const EditTemplateer = (p_id) => {
 
 export const UpdateTemplate = (p_id, template_name, template) => {
     console.log(p_id, "TTTTTTTTTTTTTTTTTTTtt")
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -510,7 +510,7 @@ export const UpdateTemplate = (p_id, template_name, template) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_template", requestOptions)
+    return fetch(`${Url}/api/update_template`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -518,7 +518,7 @@ export const UpdateTemplate = (p_id, template_name, template) => {
 }
 
 export const DeleteTemplate = (id) => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -530,7 +530,7 @@ export const DeleteTemplate = (id) => {
         redirect: 'follow'
     };
 
-    fetch(`https://medical.studiomyraa.com/api/delete_template/${id}`, requestOptions)
+    fetch(`${Url}/api/delete_template/${id}`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -539,7 +539,7 @@ export const DeleteTemplate = (id) => {
 
 
 export const GetAllTemplate = () => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -551,7 +551,7 @@ export const GetAllTemplate = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_template/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_template/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -560,7 +560,7 @@ export const GetAllTemplate = () => {
 
 
 export const FindPatientdataer = (formdata) => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -574,7 +574,7 @@ export const FindPatientdataer = (formdata) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/find_patient", requestOptions)
+    return fetch(`${Url}/api/find_patient`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -584,7 +584,7 @@ export const FindPatientdataer = (formdata) => {
 
 
 export const FindOrertyj = (formdata) => {
-    let token = Cookies.get("Provider")
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -598,7 +598,7 @@ export const FindOrertyj = (formdata) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/find_order", requestOptions)
+    return fetch(`${Url}/api/find_order`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -608,7 +608,7 @@ export const FindOrertyj = (formdata) => {
 
 
 export const BookAppointment = (formData) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
 
     var myHeaders = new Headers();
@@ -621,7 +621,7 @@ export const BookAppointment = (formData) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/clinic_appointment", requestOptions)
+    return fetch(`${Url}/api/clinic_appointment`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -631,7 +631,7 @@ export const BookAppointment = (formData) => {
 
 
 export const GetTypeAppointment = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
 
     var myHeaders = new Headers();
@@ -644,7 +644,7 @@ export const GetTypeAppointment = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_appointment_type_inprovider/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_appointment_type_inprovider/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -652,7 +652,7 @@ export const GetTypeAppointment = () => {
 }
 
 export const GetPatientAppointment = (patientName) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -664,7 +664,7 @@ export const GetPatientAppointment = (patientName) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/search_patient_inclinic?name=${patientName}&clinic_id=${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/search_patient_inclinic?name=${patientName}&clinic_id=${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -673,7 +673,7 @@ export const GetPatientAppointment = (patientName) => {
 
 
 export const GetLocation = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -685,7 +685,7 @@ export const GetLocation = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_clinic_location/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_clinic_location/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -693,7 +693,7 @@ export const GetLocation = () => {
 }
 
 export const GetEmployess = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -705,7 +705,7 @@ export const GetEmployess = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_employee_inclinic/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_employee_inclinic/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -714,7 +714,7 @@ export const GetEmployess = () => {
 
 
 export const GetBilling = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -726,7 +726,7 @@ export const GetBilling = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/billing_invoice/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/billing_invoice/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -736,7 +736,7 @@ export const GetBilling = () => {
 }
 
 export const GetBillingInvoice = (invoiceTitle, invoiceDate, selectedPatientId, description, amount) => {
-    let token = Cookies.get("Provider"); // Assuming you have the Cookies library available
+    let token = Cookies.get("provider"); // Assuming you have the Cookies library available
     console.log(token, "This Is token for all Api's");
     const randomInvoiceNumber = Math.floor(Math.random() * 1000) + 1;
 
@@ -768,7 +768,7 @@ export const GetBillingInvoice = (invoiceTitle, invoiceDate, selectedPatientId, 
     };
 
     // Replace the API endpoint URL with your actual endpoint
-    return fetch("https://medical.studiomyraa.com/api/generate_new_invoice", requestOptions)
+    return fetch(`${Url}/api/generate_new_invoice`, requestOptions)
         .then((result) => {
             if (!result.ok) {
                 throw new Error("Network response was not ok");
@@ -783,7 +783,7 @@ export const GetBillingInvoice = (invoiceTitle, invoiceDate, selectedPatientId, 
 
 
 export const GetBillingCancel = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -800,7 +800,7 @@ export const GetBillingCancel = (id) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/cancel_invoice", requestOptions)
+    return fetch(`${Url}/api/cancel_invoice`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -809,8 +809,8 @@ export const GetBillingCancel = (id) => {
 }
 
 
-export const UpdateManageClinicProfile = (clinic_name, email, phone, address, postal_code, state, timezone) => {
-    let token = Cookies.get("Provider");
+export const UpdateManageClinicProfile = (clinic_name, state, postal_code, address, email, phone, timezone) => {
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -833,7 +833,7 @@ export const UpdateManageClinicProfile = (clinic_name, email, phone, address, po
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_provider_company", requestOptions)
+    return fetch(`${Url}/api/update_provider_company`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -841,7 +841,7 @@ export const UpdateManageClinicProfile = (clinic_name, email, phone, address, po
 }
 
 export const CreateNewUser = (values) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -850,7 +850,7 @@ export const CreateNewUser = (values) => {
     var formdata = new FormData();
     formdata.append('company_id', ClinicID); // You may need to define ClinicID somewhere.
     formdata.append('name', values.Name);
-    formdata.append('username', values.username);
+    formdata.append('username', values.Username);
     formdata.append('lname', values.LastName);
     formdata.append('email', values.Email);
     formdata.append('phone', values.Phone);
@@ -863,7 +863,7 @@ export const CreateNewUser = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_provider_employee", requestOptions)
+    return fetch(`${Url}/api/add_provider_employee`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -873,7 +873,7 @@ export const CreateNewUser = (values) => {
 
 
 export const GetAllUSers = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -885,7 +885,7 @@ export const GetAllUSers = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_provider_employee/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_provider_employee/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -894,7 +894,7 @@ export const GetAllUSers = () => {
 
 
 export const AddSecurityGroup = (subject) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -911,7 +911,7 @@ export const AddSecurityGroup = (subject) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_clinics_security_groups", requestOptions)
+    return fetch(`${Url}/api/add_clinics_security_groups`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -920,7 +920,7 @@ export const AddSecurityGroup = (subject) => {
 
 
 export const GettSecurityData = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -932,7 +932,7 @@ export const GettSecurityData = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_clinics_security_groups/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_clinics_security_groups/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -940,7 +940,7 @@ export const GettSecurityData = () => {
 }
 
 export const editSecurityData = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -952,7 +952,7 @@ export const editSecurityData = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_clinics_security_groups/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_clinics_security_groups/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -962,7 +962,7 @@ export const editSecurityData = (p_id) => {
 
 export const UpdateSecurity = (id, name) => {
     console.log(id, "wwwwwwwwwwwwwwwwwwwwwww")
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -979,7 +979,7 @@ export const UpdateSecurity = (id, name) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_clinics_security_groups", requestOptions)
+    return fetch(`${Url}/api/update_clinics_security_groups`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -988,7 +988,7 @@ export const UpdateSecurity = (id, name) => {
 
 
 export const deleteSecurity = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1000,7 +1000,7 @@ export const deleteSecurity = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_single_clinics_security_groups/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_single_clinics_security_groups/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1009,7 +1009,7 @@ export const deleteSecurity = (id) => {
 
 
 export const GetSingleClinicUser = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1021,7 +1021,7 @@ export const GetSingleClinicUser = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_clinic_users/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_clinic_users/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1030,7 +1030,7 @@ export const GetSingleClinicUser = (p_id) => {
 
 export const updateUserData = (p_id, username, name, lname, email, phone, password,) => {
     console.log("Thcgvsbndsxzfhdgxcgfwdhjz", p_id, username, name, lname, email, phone, password,)
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1053,7 +1053,7 @@ export const updateUserData = (p_id, username, name, lname, email, phone, passwo
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_provider_employee", requestOptions)
+    return fetch(`${Url}/api/update_provider_employee`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1061,7 +1061,7 @@ export const updateUserData = (p_id, username, name, lname, email, phone, passwo
 }
 
 export const GetAllSecurityLocation = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1073,7 +1073,7 @@ export const GetAllSecurityLocation = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_providers_coupons/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_providers_coupons/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1082,7 +1082,7 @@ export const GetAllSecurityLocation = () => {
 
 export const AddSecurityLocation = (values) => {
     const { LocationName, LocationPhoneNumber, AddressLine, AddressLine1, City, PostalCode, State } = values;
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1106,7 +1106,7 @@ export const AddSecurityLocation = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_providers_coupons", requestOptions)
+    return fetch(`${Url}/api/add_providers_coupons`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1115,7 +1115,7 @@ export const AddSecurityLocation = (values) => {
 
 
 export const GetSingleSecondaryLocation = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1127,7 +1127,7 @@ export const GetSingleSecondaryLocation = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/single_providers_coupons/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/single_providers_coupons/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1135,7 +1135,7 @@ export const GetSingleSecondaryLocation = (p_id) => {
 }
 
 export const UpdateSecondaryLocation = (p_id, name, code, description, discount, id, discountType, expiration, patient_uses) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1159,7 +1159,7 @@ export const UpdateSecondaryLocation = (p_id, name, code, description, discount,
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_providers_coupons", requestOptions)
+    return fetch(`${Url}/api/update_providers_coupons`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1168,7 +1168,7 @@ export const UpdateSecondaryLocation = (p_id, name, code, description, discount,
 
 
 export const DeleteSecondaryLoaction = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1180,7 +1180,7 @@ export const DeleteSecondaryLoaction = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_providers_coupons/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_providers_coupons/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1191,7 +1191,7 @@ export const DeleteSecondaryLoaction = (id) => {
 
 export const AddAppointmentTypedes = (values) => {
     const { Name, Length } = values;
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1209,7 +1209,7 @@ export const AddAppointmentTypedes = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/provider_appointment_type", requestOptions)
+    return fetch(`${Url}/api/provider_appointment_type`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1218,7 +1218,7 @@ export const AddAppointmentTypedes = (values) => {
 
 
 export const GetSingleAppointmentType = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1230,7 +1230,7 @@ export const GetSingleAppointmentType = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/single_appointment_type_inclinic/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/single_appointment_type_inclinic/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1238,7 +1238,7 @@ export const GetSingleAppointmentType = (p_id) => {
 }
 
 export const UpdateAppointmentType = (p_id, name, length) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1256,7 +1256,7 @@ export const UpdateAppointmentType = (p_id, name, length) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_clinic_appointment_type", requestOptions)
+    return fetch(`${Url}/api/update_clinic_appointment_type`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1265,7 +1265,7 @@ export const UpdateAppointmentType = (p_id, name, length) => {
 
 
 export const DeleteAppointmentType = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1277,7 +1277,7 @@ export const DeleteAppointmentType = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_appointment_type_inclinic/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_appointment_type_inclinic/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1287,7 +1287,7 @@ export const DeleteAppointmentType = (id) => {
 
 
 export const GetSinglePAtient = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1299,7 +1299,7 @@ export const GetSinglePAtient = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_patient/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_patient/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1308,7 +1308,7 @@ export const GetSinglePAtient = (p_id) => {
 
 
 export const getNotesData = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1320,7 +1320,7 @@ export const getNotesData = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_patient_notes/${ClinicID}/${ValueID}`, requestOptions)
+    return fetch(`${Url}/api/get_patient_notes/${ClinicID}/${ValueID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1329,7 +1329,7 @@ export const getNotesData = () => {
 
 export const ADDNotes = (subject) => {
 
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1348,7 +1348,7 @@ export const ADDNotes = (subject) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_patient_notes", requestOptions)
+    return fetch(`${Url}/api/add_patient_notes`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1357,7 +1357,7 @@ export const ADDNotes = (subject) => {
 
 
 export const DeleteNotes = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1369,7 +1369,7 @@ export const DeleteNotes = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_patient_notes/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_patient_notes/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1379,7 +1379,7 @@ export const DeleteNotes = (id) => {
 
 
 export const GetSingleNotes = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1391,7 +1391,7 @@ export const GetSingleNotes = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/single_patient_notes/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/single_patient_notes/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1399,7 +1399,7 @@ export const GetSingleNotes = (p_id) => {
 }
 
 export const UpdateNotes = (p_id, note) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1416,7 +1416,7 @@ export const UpdateNotes = (p_id, note) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_patient_notes", requestOptions)
+    return fetch(`${Url}/api/update_patient_notes`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1426,7 +1426,7 @@ export const UpdateNotes = (p_id, note) => {
 // DDLC
 
 export const getDOContactList = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1438,7 +1438,7 @@ export const getDOContactList = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_patient_DNC/${ValueID}`, requestOptions)
+    return fetch(`${Url}/api/get_patient_DNC/${ValueID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1447,7 +1447,7 @@ export const getDOContactList = () => {
 
 export const ADDDOContactList = (FirstName, LastName, Relationship) => {
 
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1467,7 +1467,7 @@ export const ADDDOContactList = (FirstName, LastName, Relationship) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_patient_DNC", requestOptions)
+    return fetch(`${Url}/api/add_patient_DNC`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1476,7 +1476,7 @@ export const ADDDOContactList = (FirstName, LastName, Relationship) => {
 
 
 export const DeleteDOContactList = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1488,7 +1488,7 @@ export const DeleteDOContactList = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_patient_DNC/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_patient_DNC/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1498,7 +1498,7 @@ export const DeleteDOContactList = (id) => {
 
 
 export const GetSingleDOContactList = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1510,7 +1510,7 @@ export const GetSingleDOContactList = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/single_patient_DNC/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/single_patient_DNC/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1518,7 +1518,7 @@ export const GetSingleDOContactList = (p_id) => {
 }
 
 export const GetSingleProduct = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1530,7 +1530,7 @@ export const GetSingleProduct = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_product/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_product/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1555,7 +1555,7 @@ export const updateProductData = (p_id, product_name, product_category, CBC, CBD
     , product_type, remaining_amount
     , sale_amount
     , species, strain, terpineol, thc_dosage, unit, unit_type, valencene) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1598,14 +1598,15 @@ export const updateProductData = (p_id, product_name, product_category, CBC, CBD
         redirect: 'follow'
     };
 
-    fetch("https://medical.studiomyraa.com/api/update_Product", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+    return fetch(`${Url}/api/update_Product`, requestOptions)
+        .then((result) => {
+            return result.json();
+        })
+        .catch((error) => console.log('error', error));
 }
 
 export const UpdateDOContactList = (p_id, fname, lname, relationship) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1624,7 +1625,7 @@ export const UpdateDOContactList = (p_id, fname, lname, relationship) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_patient_DNC", requestOptions)
+    return fetch(`${Url}/api/update_patient_DNC`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1633,7 +1634,7 @@ export const UpdateDOContactList = (p_id, fname, lname, relationship) => {
 
 
 export const GetClinicShedule = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1645,7 +1646,7 @@ export const GetClinicShedule = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_providers_thankyoupage/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_providers_thankyoupage/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1655,7 +1656,7 @@ export const GetClinicShedule = () => {
 
 export const ADDEMAILTES = (values) => {
     const { Name, Subject, EmailContent } = values;
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1674,7 +1675,7 @@ export const ADDEMAILTES = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_providers_emailtemplate", requestOptions)
+    return fetch(`${Url}/api/add_providers_emailtemplate`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1684,7 +1685,7 @@ export const ADDEMAILTES = (values) => {
 
 export const ADDSMSTES = (values) => {
     const { Name, EmailContent } = values;
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1702,7 +1703,7 @@ export const ADDSMSTES = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_providers_smstemplate", requestOptions)
+    return fetch(`${Url}/api/add_providers_smstemplate`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1711,7 +1712,7 @@ export const ADDSMSTES = (values) => {
 
 
 export const GetEmailTemplate = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1723,7 +1724,7 @@ export const GetEmailTemplate = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_providers_emailtemplate/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_providers_emailtemplate/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1731,7 +1732,7 @@ export const GetEmailTemplate = () => {
 }
 
 export const GetSmsTemplate = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1743,7 +1744,7 @@ export const GetSmsTemplate = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_providers_smstemplate/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_providers_smstemplate/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1752,7 +1753,7 @@ export const GetSmsTemplate = () => {
 
 
 export const GetTriggerTemplate = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1764,7 +1765,7 @@ export const GetTriggerTemplate = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_providers_trigger/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_providers_trigger/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1772,7 +1773,7 @@ export const GetTriggerTemplate = () => {
 }
 
 export const ADDClinicShedule = (DoctorID, Day, Start, Stop) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1792,7 +1793,7 @@ export const ADDClinicShedule = (DoctorID, Day, Start, Stop) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_clinic_schedule", requestOptions)
+    return fetch(`${Url}/api/add_clinic_schedule`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1801,7 +1802,7 @@ export const ADDClinicShedule = (DoctorID, Day, Start, Stop) => {
 
 
 export const DeleteCLinicShedule = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1813,7 +1814,7 @@ export const DeleteCLinicShedule = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_product/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_product/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1822,7 +1823,7 @@ export const DeleteCLinicShedule = (id) => {
 
 
 export const DeleteTrigger = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1834,7 +1835,7 @@ export const DeleteTrigger = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_trigger/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_trigger/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1843,7 +1844,7 @@ export const DeleteTrigger = (id) => {
 
 
 export const DeleteSmsTemplate = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1855,7 +1856,7 @@ export const DeleteSmsTemplate = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_smstemplate/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_smstemplate/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1865,7 +1866,7 @@ export const DeleteSmsTemplate = (id) => {
 
 
 export const DeleteEmailTemplate = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1877,7 +1878,7 @@ export const DeleteEmailTemplate = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_emailtemplate/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_emailtemplate/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1885,7 +1886,7 @@ export const DeleteEmailTemplate = (id) => {
 }
 
 export const GEtSingleCliniocShedule = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1897,7 +1898,7 @@ export const GEtSingleCliniocShedule = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_providers_thankyoupage/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_providers_thankyoupage/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1906,7 +1907,7 @@ export const GEtSingleCliniocShedule = () => {
 
 
 export const GEtEmailSingle = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1918,7 +1919,7 @@ export const GEtEmailSingle = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_emailtemplate/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_emailtemplate/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1926,7 +1927,7 @@ export const GEtEmailSingle = (p_id) => {
 }
 
 export const GEtSMSSingle = (p_id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1938,7 +1939,7 @@ export const GEtSMSSingle = (p_id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_smstemplate/${p_id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_smstemplate/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -1946,7 +1947,7 @@ export const GEtSMSSingle = (p_id) => {
 }
 
 export const UPdateCLincicShedule = (content) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1963,19 +1964,42 @@ export const UPdateCLincicShedule = (content) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_providers_thankyoupage", requestOptions)
+    return fetch(`${Url}/api/update_providers_thankyoupage`, requestOptions)
         .then((result) => {
             return result.json();
         })
         .catch((error) => console.log('error', error));
 }
 
+export const AddThankuPage = () => {
+    let token = Cookies.get("provider");
+    console.log(token, "This Is token for all Api's");
+    var myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
+
+    var formdata = new FormData();
+    formdata.append("provider_company_id", "2");
+    formdata.append("content", "Hiidcfes");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://medical.studiomyraa.com/api/add_providers_thankyoupage", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+}
 
 
 
 export const UPdateSms = (id, name, content) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -1993,7 +2017,7 @@ export const UPdateSms = (id, name, content) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_providers_smstemplate", requestOptions)
+    return fetch(`${Url}/api/update_providers_smstemplate`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2005,7 +2029,7 @@ export const UPdateSms = (id, name, content) => {
 
 
 export const UPdateEmailTemplate = (id, name, subject, content) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2024,7 +2048,7 @@ export const UPdateEmailTemplate = (id, name, subject, content) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_providers_emailtemplate", requestOptions)
+    return fetch(`${Url}/api/update_providers_emailtemplate`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2034,7 +2058,7 @@ export const UPdateEmailTemplate = (id, name, subject, content) => {
 
 
 export const GetAppointmtentREwie = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2046,7 +2070,7 @@ export const GetAppointmtentREwie = () => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_appointment_request/${ClinicID}`, requestOptions)
+    return fetch(`${Url}/api/get_appointment_request/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2055,7 +2079,7 @@ export const GetAppointmtentREwie = () => {
 
 // 12-08-2023
 export const GetAllPatientFiles = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2067,7 +2091,7 @@ export const GetAllPatientFiles = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/get_patient_files/704", requestOptions)
+    return fetch(`${Url}/api/get_patient_files/704`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2075,7 +2099,7 @@ export const GetAllPatientFiles = () => {
 }
 
 export const ADDPatientFiles = (names, fileI, isVisibleToPatient) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2096,7 +2120,7 @@ export const ADDPatientFiles = (names, fileI, isVisibleToPatient) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_patient_files", requestOptions)
+    return fetch(`${Url}/api/add_patient_files`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2104,7 +2128,7 @@ export const ADDPatientFiles = (names, fileI, isVisibleToPatient) => {
 }
 
 export const DEeletPatientFiles = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2116,7 +2140,7 @@ export const DEeletPatientFiles = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_patient_files/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_patient_files/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2124,7 +2148,7 @@ export const DEeletPatientFiles = (id) => {
 }
 
 export const EDITPatientFiles = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2136,14 +2160,14 @@ export const EDITPatientFiles = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/single_patient_files/${id}`, requestOptions)
+    return fetch(`${Url}/api/single_patient_files/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
         .catch((error) => console.log('error', error));
 }
 export const UpdatePatientFiles = (name, img, id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2162,7 +2186,7 @@ export const UpdatePatientFiles = (name, img, id) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_patient_files", requestOptions)
+    return fetch(`${Url}/api/update_patient_files`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2172,7 +2196,7 @@ export const UpdatePatientFiles = (name, img, id) => {
 
 
 export const getCertificate = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2184,7 +2208,7 @@ export const getCertificate = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/get_certificates_in_patient/704", requestOptions)
+    return fetch(`${Url}/api/get_certificates_in_patient/704`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2192,7 +2216,7 @@ export const getCertificate = () => {
 }
 
 export const AddCertificate = (CertificateDate, CertificateExpiry, Diagnoses, Notes, InternalNotes, selectedDoctorId) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2215,7 +2239,7 @@ export const AddCertificate = (CertificateDate, CertificateExpiry, Diagnoses, No
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_certificate_details", requestOptions)
+    return fetch(`${Url}/api/add_certificate_details`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2224,7 +2248,7 @@ export const AddCertificate = (CertificateDate, CertificateExpiry, Diagnoses, No
 
 
 export const DeleteCertificate = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2236,7 +2260,7 @@ export const DeleteCertificate = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_certificates_in_patient/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_certificates_in_patient/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2247,7 +2271,7 @@ export const DeleteCertificate = (id) => {
 
 export const GetCertficateOrder = () => {
 
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2259,7 +2283,7 @@ export const GetCertficateOrder = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/get_certificate_order/2", requestOptions)
+    return fetch(`${Url}/api/get_certificate_order/2`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2269,7 +2293,7 @@ export const GetCertficateOrder = () => {
 
 
 export const ADDCERTIFICATEORDER = (StartDate, EXPIRE) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2294,7 +2318,7 @@ export const ADDCERTIFICATEORDER = (StartDate, EXPIRE) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_certificate_order", requestOptions)
+    return fetch(`${Url}/api/add_certificate_order`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2303,7 +2327,7 @@ export const ADDCERTIFICATEORDER = (StartDate, EXPIRE) => {
 
 
 export const DeleteCertificateOrder = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2315,7 +2339,7 @@ export const DeleteCertificateOrder = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/delete_certificate_order/${id}`, requestOptions)
+    return fetch(`${Url}/api/delete_certificate_order/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2324,7 +2348,7 @@ export const DeleteCertificateOrder = (id) => {
 
 
 export const GEtReportClinicSheduleToday = () => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2336,7 +2360,7 @@ export const GEtReportClinicSheduleToday = () => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/today_clinic_appointment/1", requestOptions)
+    return fetch(`${Url}/api/today_clinic_appointment/1`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2345,7 +2369,7 @@ export const GEtReportClinicSheduleToday = () => {
 
 
 export const GetTodayClinicSheduleFilter = (Date, TodayDoctorID) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2363,7 +2387,7 @@ export const GetTodayClinicSheduleFilter = (Date, TodayDoctorID) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/Clinic_Daily_Schedule_Report_Filter", requestOptions)
+    return fetch(`${Url}/api/Clinic_Daily_Schedule_Report_Filter`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2374,7 +2398,7 @@ export const GetTodayClinicSheduleFilter = (Date, TodayDoctorID) => {
 
 export const ADDTrigger = (values) => {
     const { Name, EmailContent, Delay, Tem, status, Noti } = values;
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2383,7 +2407,6 @@ export const ADDTrigger = (values) => {
     var formdata = new FormData();
     formdata.append("company_id", ClinicID);
     formdata.append("sms_template_id", Tem);
-    formdata.append("email_template_id", "30");
     formdata.append("triggerName", Name);
     formdata.append("description", EmailContent);
     formdata.append("event", status);
@@ -2397,7 +2420,7 @@ export const ADDTrigger = (values) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_providers_trigger", requestOptions)
+    return fetch(`${Url}/api/add_providers_trigger`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2409,7 +2432,7 @@ export const ADDTrigger = (values) => {
 
 
 export const EDITTrigger = (id) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2421,17 +2444,43 @@ export const EDITTrigger = (id) => {
         redirect: 'follow'
     };
 
-    return fetch(`https://medical.studiomyraa.com/api/get_single_trigger/${id}`, requestOptions)
+    return fetch(`${Url}/api/get_single_trigger/${id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
         .catch((error) => console.log('error', error));
 }
 
+export const ChangePasswordPatient = (values) => {
+    let { current_password, password, password_confirmation } = values;
+    let token = Cookies.get("user")
+    var myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var formdata = new FormData();
+    formdata.append("current_password", current_password);
+    formdata.append("password", password);
+    formdata.append("password_confirmation", password_confirmation);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    return fetch(`${Url}/api/changePassword`, requestOptions)
+        .then((result) => {
+            return result.json()
+        })
+        .catch(error => console.log('error', error));
+}
+
 
 
 export const UpdateTrigger = (id, description, delay, notificationType, sms_template_id, triggerName, event) => {
-    let token = Cookies.get("Provider");
+    let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2439,7 +2488,7 @@ export const UpdateTrigger = (id, description, delay, notificationType, sms_temp
 
     var formdata = new FormData();
     formdata.append("sms_template_id", sms_template_id);
-    formdata.append("email_template_id", "30");
+    formdata.append("email_template_id", "39");
     formdata.append("triggerName", triggerName);
     formdata.append("description", description);
     formdata.append("event", event);
@@ -2454,7 +2503,7 @@ export const UpdateTrigger = (id, description, delay, notificationType, sms_temp
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_providers_trigger", requestOptions)
+    return fetch(`${Url}/api/update_providers_trigger`, requestOptions)
         .then((result) => {
             return result.json();
         })
@@ -2465,8 +2514,8 @@ export const UpdateTrigger = (id, description, delay, notificationType, sms_temp
 
 
 
-export const UpdatePatientData = (id,name, lname, mname, prefername, email, registry_id, gender, pincode, address, address2, city, state, dob, phone, social_security, img) => {
-    let token = Cookies.get("Provider")
+export const UpdatePatientData = (id, name, lname, mname, prefername, email, registry_id, gender, pincode, address, address2, city, state, dob, phone, social_security, img) => {
+    let token = Cookies.get("provider")
     console.log(token, "This Is token for all Api's")
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -2498,7 +2547,28 @@ export const UpdatePatientData = (id,name, lname, mname, prefername, email, regi
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/update_patient_in_provider", requestOptions)
+    return fetch(`${Url}/api/update_patient_in_provider`, requestOptions)
+        .then((result) => {
+            return result.json()
+        })
+        .catch(error => console.log('error', error));
+}
+
+
+export const AllAppointmentDetails = () => {
+    let token = Cookies.get("provider")
+    console.log(token, "This Is token for all Api's")
+    var myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    return fetch(`${Url}/api/get_appointment_inprovider/1`, requestOptions)
         .then((result) => {
             return result.json()
         })

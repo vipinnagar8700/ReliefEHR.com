@@ -22,6 +22,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 // utils
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 // hooks
 import { useState, useEffect } from 'react';
@@ -43,6 +44,7 @@ const schema = yup.object().shape({
 
 
 const AddSMSTemplate = ({ type }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedMenuItem, setSelectedMenuItem] = useState('');
     const navigate = useNavigate()
     // const handleChange = (event) => {
@@ -66,19 +68,32 @@ const AddSMSTemplate = ({ type }) => {
 
 
     const HandleClick = (values) => {
-        console.log("Data That we Add", values.Name,  values.EmailContent, );
+        console.log("Data That we Add", values.Name, values.EmailContent,);
 
-            const PatientAddData = ADDSMSTES(values);
-            console.log(PatientAddData, "Patient Add Data");
+        const PatientAddData = ADDSMSTES(values);
+        console.log(PatientAddData, "Patient Add Data");
 
-            if (PatientAddData) {
-                PatientAddData.then((data) => {
-                    console.log(data.messege);
-                    alert(data.messege)
+        if (PatientAddData) {
+            PatientAddData.then((data) => {
+                console.log(data.messege);
+                // alert(data.messege)
+                enqueueSnackbar(data.messege, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
                 });
-            } else {
-                alert("Api's Error OCCUR");
-            }
+            });
+        } else {
+            enqueueSnackbar("Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });
+        }
 
     };
 
@@ -130,7 +145,7 @@ const AddSMSTemplate = ({ type }) => {
                                                     </Grid>
 
 
-                                                    
+
 
 
                                                     <Grid item xs={12} md={6}>

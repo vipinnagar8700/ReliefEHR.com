@@ -95,9 +95,9 @@ export const menu = [
     },
     
     {
-        icon: 'wallet',
-        name: 'Logout',
-        link: '#'
+        // icon: 'wallet',
+        // name: 'Logout',
+        // link: '#'
     },
 
     // {

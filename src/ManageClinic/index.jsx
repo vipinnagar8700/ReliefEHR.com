@@ -1,6 +1,6 @@
 import Page from '@layout/Page'
 import React from 'react'
-
+import { useSnackbar } from 'notistack';
 // components
 import Widget from '@components/Widget';
 import TabContext from '@mui/lab/TabContext';
@@ -29,7 +29,7 @@ import Trigger from './Trigger';
 
 
 const ManageClinic = ({ type }) => {
-
+    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [value, setValue] = useState('1');
     const [count, setCount] = useState(0)
@@ -67,7 +67,6 @@ const ManageClinic = ({ type }) => {
                 editProfile.state,
                 editProfile.postal_code,
                 editProfile.address,
-
                 editProfile.email,
                 editProfile.phone,
                 editProfile.timezone,
@@ -75,14 +74,33 @@ const ManageClinic = ({ type }) => {
 
             result.then((data) => {
                 console.log(data, "Data Updated Successfully");
-                alert(data.message);
+                // alert(data.message);
+                enqueueSnackbar(data.message, {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 setCount(count + 1)
                 // navigate('/dashboard_a'); // Make sure to import the 'navigate' function if using React Router or a similar library
             }).catch((error) => {
-                console.error("Error occurred while updating data:", error);
+                enqueueSnackbar(error, "Something Went Wrong try again!", {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }
+                });;
             });
         } catch (error) {
-            console.error("Error occurred while updating data:", error);
+            enqueueSnackbar(error, "Something Went Wrong try again!", {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }
+            });;
         }
     };
 
@@ -96,16 +114,20 @@ const ManageClinic = ({ type }) => {
 
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider', overflow: 'scroll' }}>
-                            <TabList onChange={handleChangeTab} aria-label="lab API tabs example" sx={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll' }}>
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:100 }} label="Company Information" value="1" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:90 }} label="Manage User" value="2" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:100 }} label=" Appointment Type" value="6" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:90 }} label=" Delivery Setting" value="7" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:120 }} label=" Coupons & Discount" value="8" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:110 }} label="Thank You Page" value="9" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:140 }} label="Custom Email Template" value="10" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:150 }} label="Custom SMS Template" value="11" />
-                                <Tab sx={{ fontSize: 13,minWidth:40,maxWidth:90 }} label="Triggers" value="12" />
+                            <TabList value={value}
+                                variant="scrollable"
+                                scrollButtons
+                                allowScrollButtonsMobile
+                                aria-label="scrollable force tabs example" onChange={handleChangeTab} aria-label="lab API tabs example" sx={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll' }}>
+                                <Tab sx={{ fontSize: 13,fontWeight:600,fontWeight:600 }} label="Company Information" value="1" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Manage User" value="2" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600}} label=" Appointment Type" value="6" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label=" Delivery Setting" value="7" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label=" Coupons & Discount" value="8" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Thank You Page" value="9" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600}} label="Custom Email Template" value="10" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Custom SMS Template" value="11" />
+                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Triggers" value="12" />
                             </TabList>
                         </Box>
                         <TabPanel value="1">
@@ -171,6 +193,7 @@ const ManageClinic = ({ type }) => {
                                                         <TextField
                                                             id="clinicPhone"
                                                             size="small"
+                                                            type='phone'
                                                             value={editProfile.phone}
                                                             onChange={(e) => setEditProfile({ ...editProfile, phone: e.target.value })}
                                                             fullWidth
@@ -181,35 +204,15 @@ const ManageClinic = ({ type }) => {
                                                         <TextField
                                                             id="clinicTimezone"
                                                             size="small"
+                                                            type="date"
                                                             value={editProfile.timezone}
                                                             onChange={(e) => setEditProfile({ ...editProfile, timezone: e.target.value })}
                                                             fullWidth
                                                         />
                                                     </Grid>
-                                                    {/* <Grid item xs={6}>
-                                                    <InputLabel htmlFor="clinicLogo"> Logo</InputLabel>
-                                                    <Box sx={{ border: '1px solid #C4C4C4', borderRadius: 2, padding: 3 }}>
-                                                        <input
-                                                            type="file"
-                                                            accept="image/*"
-                                                            onChange={(e) => setEditProfile({ ...editProfile, img: e.target.files[0] })}
-                                                        />
-                                                    </Box>
-                                                    
-                                                </Grid> */}
-                                                    <Grid item xs={6}>
 
-                                                        <Box sx={{ width: 140, height: 140 }}>
-                                                            {editProfile.img && (
-                                                                <img
-                                                                    style={{ borderRadius: 5, width: '100%', height: '100%', objectFit: 'cover' }}
-                                                                    src={`https://medical.studiomyraa.com/public/uploads/images/${editProfile.img}`}
-                                                                    alt="Clinic Logo"
-                                                                />
-                                                            )}
-                                                        </Box>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
+
+                                                    <Grid item xs={6} mt={2.7}>
                                                         <button
                                                             style={{
                                                                 width: '150px',

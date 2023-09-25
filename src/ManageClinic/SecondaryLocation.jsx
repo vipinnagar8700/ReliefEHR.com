@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router';
 import Page from '@layout/Page';
+import { useSnackbar } from 'notistack';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -33,6 +34,7 @@ const Style = {
 
 
 const SecurityLocation = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const [Sec, setSec] = useState(false)
     const [selectedTab, setSelectedTab] = useState('');
     const [openModal, setOpenModal] = useState(false);
@@ -77,7 +79,7 @@ const SecurityLocation = () => {
     useEffect(() => {
         const fetchTemplateData = async () => {
             try {
-                const data = await  GetAllSecurityLocation();
+                const data = await GetAllSecurityLocation();
                 console.log(data, "This Is all Billing Data!");
                 setPatientSData(data.result || []);
             } catch (error) {
@@ -121,7 +123,7 @@ const SecurityLocation = () => {
             selector: row => row.address22,
             sortable: true,
         },
-       
+
 
 
         {
@@ -130,15 +132,15 @@ const SecurityLocation = () => {
             cell: (row) => (
                 <>
 
-                    
-                    <button style={{ width: '80px', backgroundColor: 'skyblue', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600, marginLeft: 2 }}  >
+
+                    <button style={{ width: '40px', backgroundColor: 'skyblue', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600, marginLeft: 2 }}  >
 
                         <Link to={`/ManageClinic/Edit-Secoundary-location/${row.id}`}     >
                             Edit
                         </Link>
 
                     </button>
-                    <button style={{ width: '80px', backgroundColor: 'red', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600, marginLeft: 2 }}  >
+                    <button style={{ width: '40px', backgroundColor: 'red', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600, marginLeft: 2 }}  >
 
                         <Link to="#" onClick={e => handleDelete(row.id)}>
                             Delete
@@ -148,17 +150,17 @@ const SecurityLocation = () => {
                 </>
             ),
             button: true,
-            minWidth: '400px',
+            minWidth: '100px',
         },
     ];
 
     const data = PatientSData && PatientSData.map(item => ({
         id: item?.id || '',
         name: item?.code || '',
-        phone: item?.description        || '',
-        address1: item?.discount        || '',
-        address2: item?.patient_uses        || '',
-        address21: item?.expiration        || '',
+        phone: item?.description || '',
+        address1: item?.discount || '',
+        address2: item?.patient_uses || '',
+        address21: item?.expiration || '',
         address22: item?.is_public || '',
     }));
 
@@ -220,12 +222,25 @@ const SecurityLocation = () => {
             DeleteData.then((result) => {
                 // Handle the result if needed (e.g., show a success message)
                 console.log(result);
-                alert("Data Successfully Deleted!")
+                // alert("Data Successfully Deleted!")
+                enqueueSnackbar("Data Successfully Deleted!", {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 setCount(count + 1)
             })
                 .catch((error) => {
                     // Handle errors (e.g., show an error message)
-                    console.error('Error deleting data:', error);
+                    enqueueSnackbar(error, "Something Went Wrong try again!", {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }
+                    });
                 });
         }
 
@@ -339,21 +354,21 @@ const SecurityLocation = () => {
                     </Box>
                 </Box>
             } */}
-            <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+            <Card sx={{ minWidth: 970, marginLeft: '0px', '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                 <CardContent>
                     <Typography sx={{ fontSize: 18, fontWeight: 400 }} color="text.secondary" gutterBottom>
-                    Coupon & Discount
+                        Coupon & Discount
                     </Typography>
                     <button style={{ backgroundColor: 'skyblue', height: 40, borderRadius: 8, width: '220px', color: 'white', marginBottom: 4 }} onClick={() => { setshowpa(true) }}>
                         <Link to="/ManageClinic/Add-Secoundary-location"> Create Coupon & Discount</Link>
                     </button>
-                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1400px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 16, fontWeight: 300 }} color="text.secondary" gutterBottom>
                                 {PatientSData.length} total  coupons/discounts currently exist.
                             </Typography>
                             <div className="Order Page">
-                                <DataTableExtensions {...tableData}>
+                                <DataTableExtensions {...tableData} print={false}  export={false}>
                                     <DataTable noHeader defaultSortField="id" defaultSortAsc={false} pagination highlightOnHover />
                                 </DataTableExtensions>
                             </div>
