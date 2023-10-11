@@ -55,13 +55,14 @@ const PatientFiles = () => {
     }
   });
 
+  let { p_id } = useParams()
 
 
 
   useEffect(() => {
     const fetchTemplateData = async () => {
       try {
-        const data = await GetAllPatientFiles();
+        const data = await GetAllPatientFiles(p_id);
         console.log(data, "This Is all Billing Data!");
         setPatientSData(data.result || []);
       } catch (error) {
@@ -74,7 +75,6 @@ const PatientFiles = () => {
 
   console.log(PatientSData, "PatientFiles")
 
-  let { p_id } = useParams()
   // alert(p_id)
   const [AS, setSA] = useState(false)
 
@@ -203,7 +203,7 @@ const PatientFiles = () => {
 
     // const isPatientVisibleInt = isVisibleToPatient ? 1 : 0;
 
-    ADDPatientFiles(names, fileI, isVisibleToPatient).then((response) => {
+    ADDPatientFiles(names, fileI, isVisibleToPatient,p_id).then((response) => {
       console.log('API response:', response.messege);
       // alert(response.messege)
       enqueueSnackbar(response.messege, {

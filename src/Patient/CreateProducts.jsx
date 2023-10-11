@@ -40,7 +40,7 @@ const CreateProducts = () => {
                 Please tell us what type of product you want to create:
                 </Typography>
                 <div key="balance">
-                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                         <CardContent>
 
                             <Grid container spacing={2}>

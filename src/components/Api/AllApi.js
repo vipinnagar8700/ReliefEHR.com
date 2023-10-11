@@ -312,7 +312,7 @@ export const GetAllPatientData = () => {
         redirect: 'follow'
     };
 
-    return fetch(`${Url}/api/get_patient`, requestOptions)
+    return fetch(`${Url}/api/get_patient/${ClinicID}`, requestOptions)
         .then((result) => {
             return result.json()
         })
@@ -1946,16 +1946,16 @@ export const GEtSMSSingle = (p_id) => {
         .catch((error) => console.log('error', error));
 }
 
-export const UPdateCLincicShedule = (content) => {
+export const UPdateCLincicShedule = (content,id) => {
     let token = Cookies.get("provider");
-    console.log(token, "This Is token for all Api's");
+    console.log(token, "This Is token for all Api's22222222222222222222222222222");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var formdata = new FormData();
     formdata.append("content", content);
-    formdata.append("id", ClinicID);
+    formdata.append("id", id);
 
     var requestOptions = {
         method: 'POST',
@@ -1971,17 +1971,17 @@ export const UPdateCLincicShedule = (content) => {
         .catch((error) => console.log('error', error));
 }
 
-export const AddThankuPage = () => {
+export const AddThankuPage = (content) => {
     let token = Cookies.get("provider");
-    console.log(token, "This Is token for all Api's");
+    console.log(token, "This Is token for all Api's222222222222222222222222222222222222222222");
     var myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);
 
 
     var formdata = new FormData();
-    formdata.append("provider_company_id", "2");
-    formdata.append("content", "Hiidcfes");
+    formdata.append("provider_company_id", "1");
+    formdata.append("content", content);
 
     var requestOptions = {
         method: 'POST',
@@ -1990,10 +1990,11 @@ export const AddThankuPage = () => {
         redirect: 'follow'
     };
 
-    fetch("https://medical.studiomyraa.com/api/add_providers_thankyoupage", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+    return fetch("https://medical.studiomyraa.com/api/add_providers_thankyoupage", requestOptions)
+        .then((result) => {
+            return result.json();
+        })
+        .catch((error) => console.log('error', error));
 }
 
 
@@ -2078,7 +2079,7 @@ export const GetAppointmtentREwie = () => {
 }
 
 // 12-08-2023
-export const GetAllPatientFiles = () => {
+export const GetAllPatientFiles = (p_id) => {
     let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
@@ -2091,14 +2092,14 @@ export const GetAllPatientFiles = () => {
         redirect: 'follow'
     };
 
-    return fetch(`${Url}/api/get_patient_files/704`, requestOptions)
+    return fetch(`${Url}/api/get_patient_files/${p_id}`, requestOptions)
         .then((result) => {
             return result.json();
         })
         .catch((error) => console.log('error', error));
 }
 
-export const ADDPatientFiles = (names, fileI, isVisibleToPatient) => {
+export const ADDPatientFiles = (names, fileI, isVisibleToPatient, p_id) => {
     let token = Cookies.get("provider");
     console.log(token, "This Is token for all Api's");
     var myHeaders = new Headers();
@@ -2106,12 +2107,16 @@ export const ADDPatientFiles = (names, fileI, isVisibleToPatient) => {
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var formdata = new FormData();
-    formdata.append("patient_id", "704");
+    formdata.append("patient_id", p_id);
     formdata.append("doctor_id", "703");
     formdata.append("clinic_id", ClinicID);
     formdata.append("name", names);
     formdata.append("file", fileI);
-    formdata.append("is_patient_visible", isVisibleToPatient);
+    formdata.append(
+        "is_patient_visible",
+        isVisibleToPatient !== false ? isVisibleToPatient : 0
+    );
+
 
     var requestOptions = {
         method: 'POST',
@@ -2569,6 +2574,26 @@ export const AllAppointmentDetails = () => {
     };
 
     return fetch(`${Url}/api/get_appointment_inprovider/1`, requestOptions)
+        .then((result) => {
+            return result.json()
+        })
+        .catch(error => console.log('error', error));
+}
+
+export const GetSingleAppp = (eventId) => {
+    let token = Cookies.get("provider")
+    console.log(token, "This Is token for all Api's")
+    var myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    return fetch(`${Url}/api/get_single_appointment_inclinic/${eventId}`, requestOptions)
         .then((result) => {
             return result.json()
         })

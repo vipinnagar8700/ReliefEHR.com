@@ -97,7 +97,7 @@ const ChartsViewedReport = () => {
         <Panel/>
             <Page title="Chart Viewed Report">
                 <div key="balance">
-                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 18, fontWeight: 400 }} color="text.secondary" gutterBottom>
                             Chart Viewed Report
@@ -111,7 +111,7 @@ const ChartsViewedReport = () => {
                             </Stack>
 
 
-                            <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+                            <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1400px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
                                 <CardContent>
                                     <Typography sx={{ fontSize: 16, fontWeight: 300 }} color="text.secondary" gutterBottom>
                                         0 total Clinic Daily Schedule Report found

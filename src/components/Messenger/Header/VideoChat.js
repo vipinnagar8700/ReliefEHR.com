@@ -2,12 +2,19 @@ import React, { useState, useCallback, useEffect } from "react";
 import Video from "twilio-video";
 import Lobby from "./Lobby";
 import Room from "./Room";
+import Cookies from "js-cookie";
 
 
 
-const VideoChat = ({ user }) => {
-  const [username, setUsername] = useState("");
-  const [roomName, setRoomName] = useState("");
+const VideoChat = ({ user, handleOpen }) => {
+  const { id, clinic_id } = user;
+  console.log(id, clinic_id, "UUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
+  const [username, setUsername] = useState(id);
+  const [roomName, setRoomName] = useState(clinic_id);
+  useEffect(() => {
+    setUsername(id);
+    setRoomName(clinic_id);
+  }, [user]);
   const [room, setRoom] = useState(null);
   const [connecting, setConnecting] = useState(false);
 
@@ -18,6 +25,38 @@ const VideoChat = ({ user }) => {
   const handleRoomNameChange = useCallback((event) => {
     setRoomName(event.target.value);
   }, []);
+
+
+  const ReactCalltouser = async () => {
+    try {
+      let token = Cookies.get("provider");
+      console.log(token, "This Is token for all Api's222222222222222222222222222222222222222222");
+      var myHeaders = new Headers();
+      myHeaders.append("Accept", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      const formdata = new FormData();
+      formdata.append("patient_id", "704");
+      formdata.append("channel_name", "1");
+
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+      };
+
+      const response = await fetch("https://medical.studiomyraa.com/api/channnel_name", requestOptions);
+      if (response.ok) {
+        const result = await response.text();
+        console.log(result,"77777777777777777777777777777777");
+      } else {
+        console.error("API request failed");
+      }
+    } catch (error) {
+      console.error('error', error);
+    }
+  }
 
   const handleSubmit = useCallback(
     async (event) => {
@@ -39,6 +78,8 @@ const VideoChat = ({ user }) => {
         .then((room) => {
           setConnecting(false);
           setRoom(room);
+          // handleOpen()
+          ReactCalltouser()
         })
         .catch((err) => {
           console.error(err);
@@ -87,6 +128,7 @@ const VideoChat = ({ user }) => {
   } else {
     render = (
       <Lobby
+        handleOpen={handleOpen}
         user={user}
         username={username}
         roomName={roomName}

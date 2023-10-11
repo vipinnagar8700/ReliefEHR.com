@@ -164,7 +164,7 @@ const DoctorPopup = ({ name, open, handler, elemsHeight }) => {
 
     return (
         <ModalWindow isVisible={open} visibilityHandler={handler}>
-            <Container className={open ? 'visible' : ''} top={elemsHeight}>
+            <Container className={open ? 'modal open' : 'modal'} top={elemsHeight}>
                 {/* <Form onSubmit={(event) => handleSubmit(event)} >
 
                     <Typography>Patient Nagar</Typography>

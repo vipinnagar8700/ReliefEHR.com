@@ -1,14 +1,14 @@
 // styling
 import styled from 'styled-components/macro';
-import {colors, light, fonts, textSizes} from '@styles/vars';
+import { colors, light, fonts, textSizes } from '@styles/vars';
 
 // components
 import WaveSurfer from 'wavesurfer.js';
 import ShapeButton from '@ui/ShapeButton';
 
 // hooks
-import {useState, useEffect} from 'react';
-import {useTheme} from 'styled-components';
+import { useState, useEffect } from 'react';
+import { useTheme } from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ const Waveform = (props) => {
         src: props.src,
         id: props.id
     });
-    const {theme} = useTheme();
+    const { theme } = useTheme();
 
     const [wave, setWave] = useState(null);
 
@@ -61,13 +61,13 @@ const Waveform = (props) => {
             setWave(waveform);
             waveform.load(track);
             waveform.on('ready', () => {
-                setState({...state, duration: waveform.getDuration()});
+                setState({ ...state, duration: waveform.getDuration() });
             });
             waveform.on('audioprocess', () => {
-                setState({...state, progress: waveform.getCurrentTime()});
+                setState({ ...state, progress: waveform.getCurrentTime() });
             })
             waveform.on('finish', () => {
-                setState({...state, playing: false, progress: 0});
+                setState({ ...state, playing: false, progress: 0 });
                 waveform.seekTo(0);
             })
         }
@@ -85,7 +85,7 @@ const Waveform = (props) => {
     }, [theme, wave]);
 
     const handlePlay = () => {
-        setState({...state, playing: !state.playing});
+        setState({ ...state, playing: !state.playing });
         wave.playPause();
     };
 
@@ -98,11 +98,11 @@ const Waveform = (props) => {
     return (
         <Container className="audio">
             <ShapeButton shape="round" icon={!state.playing ? 'play' : 'pause'}
-                         label={!state.playing ? 'Play voice message' : 'Pause voice message'}
-                         handler={handlePlay}
+                label={!state.playing ? 'Play voice message' : 'Pause voice message'}
+                handler={handlePlay}
             />
-            <div className="wave" id={`waveform_${state.id}`}/>
-            <audio id={`track_${state.id}`} src={props.src}/>
+            <div className="wave" id={`waveform_${state.id}`} />
+            <audio id={`track_${state.id}`} src={props.src} />
             <div className="duration">
                 {formatTime(state.progress)} / {formatTime(state.duration)}
             </div>

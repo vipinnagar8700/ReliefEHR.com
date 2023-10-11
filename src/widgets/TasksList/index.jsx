@@ -39,6 +39,7 @@ const Footer = styled.div`
 `;
 
 const TasksList = () => {
+    const [count, setCount] = useState(0)
     const { enqueueSnackbar } = useSnackbar();
     const [open, setOpen] = useState(false);
     const [filteredOptions, setFilteredOptions] = useState([]);
@@ -113,7 +114,7 @@ const TasksList = () => {
         formdata.append("provider_company_id", ClinicID);
         formdata.append("type_id", type);
         formdata.append("start_date", startDate);
-        formdata.append("end_date", startDate);
+        formdata.append("end_date", endDate);
         formdata.append("note", note);
         formdata.append("appointment_color", appointmentColor);
 
@@ -136,6 +137,10 @@ const TasksList = () => {
                         horizontal: 'right',
                     },
                 });
+                setCount(count + 1)
+                // Reload the current web page
+                window.location.reload();
+
             })
             .catch((error) => enqueueSnackbar(error, "Something Went Wrong try again!", {
                 variant: 'error',
@@ -157,7 +162,7 @@ const TasksList = () => {
     useEffect(() => {
         GetAllTypeAppointmentData();
         getPatientData();
-    }, [patientName]);
+    }, [patientName, count]);
 
 
     const getPatientData = async () => {

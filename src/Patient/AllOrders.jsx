@@ -18,7 +18,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
-import { Stack } from '@mui/material';
+import { InputLabel, Stack } from '@mui/material';
 
 // hooks
 import { useState, useEffect } from 'react';
@@ -33,7 +33,25 @@ const AllOrders = () => {
     const smallScreen = window.matchMedia('(max-width: 1038.98px)').matches;
     const [PatientSData, setPatientSData] = useState([])
     const [count, setCount] = useState(0)
+    const [showPopup, setShowPopup] = useState(false);
+    const [selectedPatient, setSelectedPatient] = useState(null);
+    const [result, setResult] = useState(null);
 
+
+    const handleButtonClick = (patientId) => {
+        console.log(patientId)
+        setResult(patientId)
+        setShowPopup(true);
+        const selectedPatient = PatientSData.find(patient => patient.id === patientId);
+        setSelectedPatient(selectedPatient);
+
+        // Show the popup
+        setShowPopup(true);
+    };
+    console.log(selectedPatient, "OOOOOOO")
+    const closePopup = () => {
+        setShowPopup(false);
+    };
     const handleModalClose = () => {
         setOpenModal(false);
         setSelectedTab('');
@@ -44,7 +62,49 @@ const AllOrders = () => {
             handleModalClose();
         }
     });
+    const statusOptions = [
+        'Pending',
+        'New Order',
+        'Out for Delivery',
+        'Complete',
+        'Cancelled',
+        'Denied',
+        'Not Yet Eligible',
+        'Pending Payment',
+        'Ready for Pickup',
+    ];
 
+    const [selectedStatus, setSelectedStatus] = useState(statusOptions[0]); // Default status
+
+    const updateOrderStatus = async () => {
+        const apiUrl = 'https://medical.studiomyraa.com/api/update_order_status';
+
+        const myHeaders = new Headers();
+        myHeaders.append('Accept', 'application/json');
+        myHeaders.append('Authorization', 'Bearer 4401|9ej5wdphXDC2H6HNtpV8kEm0TFudSWvayNYSl2hP');
+
+        const formdata = new FormData();
+        formdata.append('status', selectedStatus); // Use the selected status
+        formdata.append('id', result); // Replace with the actual order ID
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow',
+        };
+
+        try {
+            const response = await fetch(apiUrl, requestOptions);
+            const data = await response.text();
+            console.log(data?.messege, "PPPPP")
+            alert("Status Successfully Updated!")
+            setCount(count + 1)
+            closePopup()
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     useEffect(() => {
         const fetchTemplateData = async () => {
@@ -64,7 +124,7 @@ const AllOrders = () => {
     const columns = [
         {
             name: 'Order ID',
-            selector: (row) => row.id,
+            selector: (row) => row.order_id,
             sortable: true,
         },
 
@@ -124,7 +184,7 @@ const AllOrders = () => {
             cell: (row) => (
                 <>
 
-                    <button style={{ width: '110px', backgroundColor: '#2BAA27', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600 }} sx={{ fontWeight: 300 }} >
+                    <button onClick={() => handleButtonClick(row.id)} style={{ width: '110px', backgroundColor: '#2BAA27', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600 }} sx={{ fontWeight: 300 }} >
                         <Link to="#">
                             View
                         </Link>
@@ -142,10 +202,11 @@ const AllOrders = () => {
 
 
     const data = PatientSData.map((item) => ({
-        id: item?.order_id || '',
+        id: item?.id || '',
+        order_id: item?.order_id || '',
         name: item?.patient?.name || '',
         namee: item?.patient?.lname || '',
-        mname: item?.total_amount      || '',
+        mname: item?.total_amount || '',
         lname: item?.status || '',
         city: item?.city || '',
         state: item?.state || '',
@@ -163,22 +224,47 @@ const AllOrders = () => {
         // <Tab.Container transition={true} activeKey={selectedTab} onSelect={setSelectedTab}>
         //     <Page title="My Order">
         <>
-        <Sidebar/>
-        <Panel/>
+            <Sidebar />
+            <Panel />
             <Page title="All Orders">
                 <div key="balance">
-                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+                    {showPopup && selectedPatient && (
+                        <div className="popup" style={{ position: 'absolute', backgroundColor: 'white', width: '300px', padding: 15, borderRadius: 7, border: '1px solid gray', top: '50%', left: '50%', zIndex: 999 }}>
+                            <div className="popup-content">
+                                <Stack sx={{ justifyContent: 'end', alignItems: 'end' }}>
+                                    <Typography onClick={closePopup}>x</Typography>
+                                </Stack>
+                                <InputLabel>Patient Name</InputLabel>
+                                <TextField fullWidth size='small' value={`${selectedPatient.patient.name} ${selectedPatient.patient.lname}`} disabled />
+                                <InputLabel>Status</InputLabel>
+                                <select
+                                    style={{ padding: 10, width: '100%' }}
+                                    value={selectedStatus}
+                                    onChange={(e) => setSelectedStatus(e.target.value)}
+                                >
+                                    {statusOptions.map((option) => (
+                                        <option key={option} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button onClick={updateOrderStatus} style={{marginTop:5, width: '110px', backgroundColor: '#2BAA27', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600 }} sx={{ fontWeight: 300 }}>Update Status</button>
+                            </div>
+                        </div>
+                    )}
+
+                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 18, fontWeight: 400 }} color="text.secondary" gutterBottom>
                                 All Order
                             </Typography>
-                            <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+                            <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1400px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
                                 <CardContent>
                                     <Typography sx={{ fontSize: 16, fontWeight: 300 }} color="text.secondary" gutterBottom>
-                                       {PatientSData.length}  total Orders found
+                                        {PatientSData.length}  total Orders found
                                     </Typography>
                                     <div className="Order Page">
-                                        <DataTableExtensions print={false}  export={false}
+                                        <DataTableExtensions print={false} export={false}
                                             {...tableData}
                                         >
                                             <DataTable

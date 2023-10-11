@@ -7,14 +7,31 @@ import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
 import { Grid } from '@mui/material';
 import PatientCalendar from '@widgets/PatientCalendar';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import PatientsGenderLineChart from '@widgets/PatientsGenderLineChart';
 import EventsCompactCalendar from '@widgets/EventsCompactCalendar';
 import HealthIndexChart from '@widgets/HealthIndexChart';
+import { GetAllOrdersData } from '@components/Api/AllApi';
 
 const DashboardK = () => {
 
     const [currentView, setView] = useState('day');
+    const [PatientSData,setPatientSData] = useState(false)
+    useEffect(() => {
+        const fetchTemplateData = async () => {
+            try {
+                const data = await GetAllOrdersData();
+                console.log(data, "This Is all Patinet Data!");
+                setPatientSData(data?.count);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchTemplateData();
+    }, []);
+
+    console.log(PatientSData)
 
     let pageTitle = '';
     switch (currentView) {
@@ -37,7 +54,7 @@ const DashboardK = () => {
                     
                     <Grid items xs={2} sm={4} md={4}>
                         <div style={{margin:'4px'}} key="stat-cause">
-                            <Statistics data={{ type: 'cause', value: '2', text: 'Total Orders' }} />
+                            <Statistics data={{ type: 'cause', value: PatientSData, text: 'Total Orders' }} />
                         </div>
                     </Grid>
                     <Grid items xs={2} sm={4} md={4}>
@@ -47,7 +64,7 @@ const DashboardK = () => {
                     </Grid>
                     <Grid items xs={2} sm={4} md={4}>
                         <div style={{margin:'4px'}} key="stat-heart">
-                            <Statistics data={{ type: 'heart', value: '0', text: 'New Order Today' }} />
+                            <Statistics data={{ type: 'heart', value: PatientSData, text: 'New Order Today' }} />
                         </div>
                     </Grid>
                     
@@ -63,7 +80,7 @@ const DashboardK = () => {
                     <Grid items md={9}>
 
                         <div style={{margin:'4px'}} key="health-index">
-                            <HealthIndexChart variant="both" />
+                            <HealthIndexChart PatientSData={PatientSData} variant="both" />
                         </div>
                     </Grid>
                 </Grid>

@@ -49,12 +49,12 @@ const ClinicActivityReport = () => {
     const columns = [
         {
             name: 'Date',
-            selector: row => row.PatientName,
+            selector: row => row.certificate_date,
             sortable: true,
         },
         {
             name: 'Employee',
-            selector: row => row.certificate_date,
+            selector: row => row.PatientName,
             sortable: true,
         },
         {
@@ -71,7 +71,7 @@ const ClinicActivityReport = () => {
     const data = PatientSData && PatientSData.map(item => ({
         id: item?.id || '',
         certificate_date: item?.certificate_date || '',
-        certificate_expiry: item?.certificate_expiry || '',
+        certificate_expiry: item?.status || '',
         PatientName: item?.patient?.[0]?.name || '',
     }));
 

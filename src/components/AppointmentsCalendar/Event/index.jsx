@@ -1,34 +1,21 @@
-// styled components
+import React, { useEffect, useState } from 'react';
 import { StyledEvent, EventModal } from './style';
-
-// components
-import ModalWindow from '@components/ModalWindow';
-
-// utils
 import moment from 'moment';
 import PropTypes from 'prop-types';
-
-// hooks
+import ModalWindow from '@components/ModalWindow';
 import { useTheme } from 'styled-components';
-import { useState } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 import { AllAppointmentDetails } from '@components/Api/AllApi';
-import { useEffect } from 'react';
 
 const Event = ({ event, variant }) => {
-    console.log(event, "I got it")
-    const [Post, setPost] = useState(false)
+    const [post, setPost] = useState(null);
     const [open, setOpen] = useState(false);
     const { theme } = useTheme();
 
-
-
     useEffect(() => {
-
         const fetchData = async () => {
             try {
                 const data = await AllAppointmentDetails();
-                console.log(data?.result, "Appointment Data");
                 setPost(data?.result);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -36,39 +23,24 @@ const Event = ({ event, variant }) => {
         };
 
         fetchData();
-    }, [])
+    }, []);
 
-
-    console.log(Post, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIiiiiiiii")
-
-    let isEnded = moment(Post?.[0]?.end_date).isBefore(moment());
-    console.log(isEnded)
+    const isEnded = moment(post?.end_date).isBefore(moment());
     const isDesktop = useWindowSize().width >= 1280;
 
     const getTakenSlots = () => {
-        const duration = moment.duration(moment(Post?.[0]?.end_date).diff(moment(Post?.[0]?.start_date)));
+        const duration = moment.duration(moment(post?.end_date).diff(moment(post?.start_date)));
         return Math.ceil(duration.asMinutes() / 30);
     }
 
-    const datetimeString = Post?.[0]?.end_date;
-    const dateObject = new Date(datetimeString);
+    const formattedStartTime = moment(post?.start_date).format('hh:mm A');
+    const formattedEndTime = moment(post?.end_date).format('hh:mm A');
 
-    // Get the hours and minutes as separate variables
-    const hours = dateObject.getHours();
-    const minutes = dateObject.getMinutes();
-
-    // Determine whether it's AM or PM
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-
-    // Convert to 12-hour format and format the time as hh:mm AM/PM
-    const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
-    const formattedTime = `${formattedHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-
-    console.log(formattedTime); // Output: "01:00 PM"
-
-
-
-    const Title = () => <span className="event-title" style={{ direction: 'ltr' }}>{formattedTime} {Post?.[0]?.patient?.[0]?.name}{Post?.[0]?.patient?.[0]?.lname}</span>;
+    const Title = () => (
+        <span className="event-title" style={{ direction: 'ltr' }}>
+            {formattedStartTime} - {formattedEndTime} {post?.patient?.[0]?.name} {post?.patient?.[0]?.lname}
+        </span>
+    );
 
     return (
         <StyledEvent className={`event event-${variant} ${isEnded ? 'isEnded' : ''}`}

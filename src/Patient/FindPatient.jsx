@@ -255,6 +255,7 @@ const FindPatient = ({ type }) => {
                                                             id="patientProfileBirthday"
                                                             title="Birthday"
                                                             size="small"
+                                                            type="date"
                                                             placeholder="Birthday"
                                                             fullWidth
                                                             value={formData.dob}

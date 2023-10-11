@@ -178,7 +178,7 @@ const EditSingleProduct = () => {
             <Panel />
             <Page title="Edit  Product Data">
                 <div key="balance">
-                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1200px)': { minWidth: '100%' } }}>
+                    <Card sx={{ minWidth: 1175, '@media screen and (max-width: 1400px)': { minWidth: '100%' } }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 14, fontWeight: 400 }} color="text.secondary" gutterBottom>
                                 <Checkbox /> Display Product in Shop?

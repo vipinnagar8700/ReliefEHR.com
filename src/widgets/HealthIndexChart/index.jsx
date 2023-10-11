@@ -25,7 +25,7 @@ import {useTheme} from 'styled-components';
 // data placeholder
 import {y2020, y2021, y2022} from '@db/health';
 
-const HealthIndexChart = ({variant}) => {
+const HealthIndexChart = ({variant,PatientSData}) => {
     const {theme} = useTheme();
     const {periods} = usePeriodNav();
     const {index, navigate} = useArrayNav(periods);
@@ -88,7 +88,7 @@ const HealthIndexChart = ({variant}) => {
                     <div className="total">
                         <div className="total_block total_block--cured">
                             <span className="spacer h1">{averages[index].cured}</span>
-                            <CountUp className="counter h1" end={averages[index].cured} duration={2} decimals={2} />
+                            <CountUp className="counter h1" end={PatientSData} duration={2}  />
                             <span><span className="hidden">Total</span> Orders</span>
                         </div>
                         

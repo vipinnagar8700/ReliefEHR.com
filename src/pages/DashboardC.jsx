@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
+import MYCalendar from '@components/CustomAppointment.js/Calender';
 
 
 
@@ -40,7 +41,7 @@ const DashboardC = () => {
                     <TasksList />
                 </div>
                 <div key="task-list">
-                    <PatientCalendar current={currentView} handler={setView} />
+                    <MYCalendar current={currentView} handler={setView} />
                 </div>
 
 

@@ -161,7 +161,7 @@ const FindOrders = ({ type }) => {
 
     const data = PatientSData.map((item) => ({
         id: item?.order_id || '',
-        name: item?.patient?.[0]?.name || '',
+        name: item?.patient?.name || '',
         mname: item?.total_amount      || '',
         lname: item?.status || '',
         city: item?.city || '',
@@ -232,12 +232,12 @@ const FindOrders = ({ type }) => {
                                                         />
                                                     </Grid>
                                                     <Grid item xs={6}>
-                                                        <InputLabel htmlFor="gender">Order ID</InputLabel>
+                                                        <InputLabel htmlFor="gender">Status</InputLabel>
                                                         <Select
                                                             labelId="dropdown-label"
-                                                            name="order_id"
+                                                            name="status"
                                                             size="small" fullWidth
-                                                            value={formData.order_id}
+                                                            value={formData.status}
                                                             onChange={handleChange}
                                                         >
                                                             <MenuItem value="">Status</MenuItem>
@@ -254,6 +254,19 @@ const FindOrders = ({ type }) => {
                                                             <MenuItem value="Ready for pickup">Ready for pickup</MenuItem>
 
                                                         </Select>
+                                                    </Grid>
+                                                        <Grid item xs={6}>
+                                                        <InputLabel htmlFor="gender">Order Id</InputLabel>
+                                                        <TextField
+                                                            name="order_id"
+                                                            id="patientProfilePhone"
+                                                            title="Phone"
+                                                            size="small"
+                                                            placeholder="Order ID"
+                                                            fullWidth
+                                                            value={formData.order_id}
+                                                            onChange={handleChange}
+                                                        />
                                                     </Grid>
                                                     <Grid item xs={6}>
                                                         <InputLabel htmlFor="phone">Order Total</InputLabel>

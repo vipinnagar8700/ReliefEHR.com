@@ -8,7 +8,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { ADDClinicShedule, AddSecurityGroup, DeleteCLinicShedule, GEtSingleCliniocShedule, GetAllUSers, GetBilling, GetBillingCancel, GetClinicShedule, GetEmployess, GettSecurityData, UPdateCLincicShedule, UpdateSecurity, deleteSecurity, editSecurityData } from '@components/Api/AllApi';
+import { ADDClinicShedule, AddSecurityGroup, AddThankuPage, DeleteCLinicShedule, GEtSingleCliniocShedule, GetAllUSers, GetBilling, GetBillingCancel, GetClinicShedule, GetEmployess, GettSecurityData, UPdateCLincicShedule, UpdateSecurity, deleteSecurity, editSecurityData } from '@components/Api/AllApi';
 import { Grid, Stack, TextField, InputLabel, Box, MenuItem, Select } from '@mui/material';
 
 
@@ -31,9 +31,71 @@ const ThankYouPage = () => {
         }
     });
 
+    const [contentA, setContentA] = useState(false);
+    //    console.log(contentA)
+    console.log(contentA, "9999999999999999999999999999999999999999")
+
+    const [content, setContent] = useState(''); // State to hold the content value
+    let id = contentA?.id;
 
 
-  
+
+    // Function to handle form submission
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        // Call the API to add the Thank You Page content
+        try {
+            const response = await AddThankuPage(content);
+
+            if (response.status === "success") {
+                // Handle success for adding content
+                console.log(response);
+                alert('Content added successfully');
+            } else if (response.status === "exists") {
+                // Content already exists, update it
+                const updateResponse = await UPdateCLincicShedule(content,id);
+                console.log(updateResponse);
+                if (updateResponse.status === "Succes") {
+                    // Handle success for updating content
+                    alert('Content updated successfully');
+                } else {
+                    // Handle error for updating content
+                    console.error('Failed to update content');
+                }
+            } else {
+                // Handle other error cases, e.g., show an error message
+                console.error('Failed to add/update content');
+            }
+
+        } catch (error) {
+            // Handle any network or API call errors
+            console.error('API call error:', error);
+        }
+    };
+
+    useEffect(() => {
+        // Call the API to get Thank You Page content and update the state
+        const fetchData = async () => {
+            try {
+                const response = await GetClinicShedule();
+                if (response) {
+                    // Update the content state with the fetched data
+                    setContentA(response?.result)
+                    setContent(response?.result?.content);
+                    console.log(response?.result, 'Content getes successfully');
+                } else {
+                    // Handle error, e.g., show an error message
+                    console.error('Failed to fetch content');
+                }
+            } catch (error) {
+                // Handle any network or API call erroxrs
+                console.error('API call error:', error);
+            }
+        };
+
+        fetchData(); // Fetch data when the component mounts
+    }, []);
 
 
 
@@ -41,7 +103,6 @@ const ThankYouPage = () => {
 
 
 
-    
 
 
 
@@ -67,10 +128,7 @@ const ThankYouPage = () => {
                                         </Box>
 
                                         <Box sx={{ mt: 2 }}>
-                                            <form>
-
-
-
+                                            <form onSubmit={handleFormSubmit}>
                                                 <InputLabel htmlFor="name"> Content </InputLabel>
                                                 <TextField
                                                     variant="outlined"
@@ -78,19 +136,25 @@ const ThankYouPage = () => {
                                                     margin="normal"
                                                     size='small'
                                                     row={6}
-                                                // Add any other props you want to customize the TextField
+                                                    value={content} // Bind input value to state
+                                                    onChange={(e) => setContent(e.target.value)} // Update state on input change
                                                 />
                                                 <Grid container>
                                                     <Grid item xs={12}>
                                                         <Stack mt={1}>
-                                                            <button p={2} style={{ width: '150px', backgroundColor: '#2BAA27', height: '40px', borderRadius: 4, color: 'white', fontWeight: 400 }} variant="contained" color="success" sx={{ width: '100%' }}>Save Changes</button>
+                                                            <button
+                                                                type="submit"
+                                                                p={2}
+                                                                style={{ width: '150px', backgroundColor: '#2BAA27', height: '40px', borderRadius: 4, color: 'white', fontWeight: 400 }}
+                                                                variant="contained"
+                                                                color="success"
+                                                                sx={{ width: '100%' }}
+                                                            >
+                                                                Save Changes
+                                                            </button>
                                                         </Stack>
                                                     </Grid>
-
                                                 </Grid>
-
-
-                                                {/* Add more TextField components for other input fields */}
                                             </form>
                                         </Box>
 

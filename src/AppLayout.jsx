@@ -59,6 +59,7 @@ import EditSMSTempalets from 'ManageClinic/EditSMSTEMPLATES';
 import AddTriggers from 'ManageClinic/AddTriggers';
 import EditTrigger from 'ManageClinic/EditTrigger';
 import Providerprotect from 'ProviderRouteProtect';
+import MYCalendar from '@components/CustomAppointment.js/Calender';
 
 // pages
 const DashboardA = lazy(() => import('@pages/DashboardA'));
@@ -203,7 +204,7 @@ const AppLayout = () => {
 
                         {/* lkoijuhygtfrdftgyhujikol */}
                         <Route path="/SinglePAteintPersonalDetails" element={<Providerprotect><PersonalInformation /></Providerprotect>} />
-
+                        <Route path="/CLA" element={<MYCalendar />} />
 
                     </Routes>
                 </Suspense>

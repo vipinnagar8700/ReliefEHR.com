@@ -89,6 +89,7 @@ const Form = ({ type }) => {
                 // navigate('/Provider-Dashboard')
 
             })
+            window.location.reload()
             console.log(result, "Data Updated Successfully");
             //   history.push("/dashboard_a");
         } catch (error) {

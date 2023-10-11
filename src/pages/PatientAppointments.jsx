@@ -1,9 +1,10 @@
 // components
 import Page from '@layout/Page';
+import DoctorCalendar from '@widgets/DoctorCalendar';
 import PatientCalendar from '@widgets/PatientCalendar';
 
 // utils
-import {useState} from 'react';
+import { useState } from 'react';
 
 const PatientAppointments = () => {
     const [currentView, setView] = useState('day');
@@ -22,8 +23,8 @@ const PatientAppointments = () => {
     }
 
     return (
-        <Page title={pageTitle}>
-            <PatientCalendar current={currentView} handler={setView}/>
+        <Page title={pageTitle} hasBadge={currentView === 'day'} qty={2}>
+            <DoctorCalendar current={currentView} handler={setView} />
         </Page>
     )
 }
