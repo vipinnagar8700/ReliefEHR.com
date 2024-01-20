@@ -38,11 +38,11 @@ export const menu = [
     //     name: 'Appointment Request',
     //     link: '/Appointment-Data-List'
     // },
-    {
-        icon: 'comment',
-        name: 'Messages',
-        link: '/doctor_messenger'
-    },
+    // {
+    //     icon: 'comment',
+    //     name: 'Messages',
+    //     link: '/doctor_messenger'
+    // },
     // {
     //     icon: 'users',
     //     name: 'Billing',

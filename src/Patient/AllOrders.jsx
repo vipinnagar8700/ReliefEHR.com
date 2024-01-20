@@ -19,13 +19,14 @@ import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
 import { InputLabel, Stack } from '@mui/material';
-
+import Cookies from "js-cookie";
 // hooks
 import { useState, useEffect } from 'react';
 import { GetAllOrdersData, GetAllPatientData } from '@components/Api/AllApi';
 import { Link } from 'react-router-dom';
 import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
+import Url from 'url/Allurl';
 
 const AllOrders = () => {
     const [selectedTab, setSelectedTab] = useState('');
@@ -77,11 +78,12 @@ const AllOrders = () => {
     const [selectedStatus, setSelectedStatus] = useState(statusOptions[0]); // Default status
 
     const updateOrderStatus = async () => {
-        const apiUrl = 'https://medical.studiomyraa.com/api/update_order_status';
-
+        const apiUrl = `${Url}/api/update_order_status`;
+        let token = Cookies.get("provider")
+        console.log(token, "This Is token for all Api's")
         const myHeaders = new Headers();
         myHeaders.append('Accept', 'application/json');
-        myHeaders.append('Authorization', 'Bearer 4401|9ej5wdphXDC2H6HNtpV8kEm0TFudSWvayNYSl2hP');
+        myHeaders.append('Authorization', `Bearer ${token}`);
 
         const formdata = new FormData();
         formdata.append('status', selectedStatus); // Use the selected status
@@ -248,7 +250,10 @@ const AllOrders = () => {
                                         </option>
                                     ))}
                                 </select>
-                                <button onClick={updateOrderStatus} style={{marginTop:5, width: '110px', backgroundColor: '#2BAA27', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600 }} sx={{ fontWeight: 300 }}>Update Status</button>
+                                <Box fullWidth sx={{justifyContent:'center'}}> 
+                                <button onClick={updateOrderStatus} style={{ marginTop: 5,  backgroundColor: '#2BAA27', height: '35px', borderRadius: 4, color: 'white', fontWeight: 600,paddingInline:'20px' }} sx={{ fontWeight: 300 }}>Update Status</button>
+
+                                </Box>
                             </div>
                         </div>
                     )}

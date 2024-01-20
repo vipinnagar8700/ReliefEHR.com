@@ -140,7 +140,7 @@ export default function MYCalendar() {
         setIsModalOpen(false);
     };
     return (
-        <div>
+        <div className="custom_cal">
             <div>
                 <button onClick={() => handleViewChange('month')}>Month</button>
                 <button onClick={() => handleViewChange('week')}>Week</button>

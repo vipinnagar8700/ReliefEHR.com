@@ -17,6 +17,8 @@ import { LoginApi } from '@components/Api/AllApi';
 import { useState } from 'react';
 import Cookies from 'js-cookie'; // Import the js-cookie library
 import { useNavigate } from 'react-router';
+import Url from 'url/Allurl';
+
 
 
 const Login = () => {
@@ -31,7 +33,7 @@ const Login = () => {
     e.preventDefault();
     try {
       // Call the API here using the updated fetch method
-      const res = await fetch("https://medical.studiomyraa.com/api/login_action", {
+      const res = await fetch(`${Url}/api/login_action`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

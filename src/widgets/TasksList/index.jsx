@@ -34,6 +34,7 @@ import { InputLabel, TextField, FormControl, MenuItem, Paper, Typography, Select
 import { BookAppointment, GetEmployess, GetLocation, GetPatientAppointment, GetTypeAppointment } from '@components/Api/AllApi';
 import Autocomplete from '@mui/material/Autocomplete';
 import Cookies from 'js-cookie';
+import Url from 'url/Allurl';
 const Footer = styled.div`
   padding: 2px 24px 22px 24px;
 `;
@@ -125,7 +126,7 @@ const TasksList = () => {
             redirect: 'follow'
         };
 
-        return fetch("https://medical.studiomyraa.com/api/provider_appointment", requestOptions)
+        return fetch(`${Url}/api/provider_appointment`, requestOptions)
             .then((res) => res.json())
             .then((json) => {
                 console.log(json, "anjkhgdchjm");

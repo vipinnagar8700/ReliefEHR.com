@@ -312,7 +312,7 @@ const FindPatient = ({ type }) => {
             )}
             {count > 0 ? (
                 <Box mt={2}>
-                    <Card sx={{ minWidth: 1145, '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
+                    <Card sx={{ '@media screen and (max-width: 1200px)': { minWidth: '100%' }, backgroundColor: '#F1F5F8' }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 16, fontWeight: 300 }} color="text.secondary" gutterBottom>
                                 {count} total Patient found

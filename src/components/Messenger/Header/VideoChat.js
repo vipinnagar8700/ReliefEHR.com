@@ -3,6 +3,7 @@ import Video from "twilio-video";
 import Lobby from "./Lobby";
 import Room from "./Room";
 import Cookies from "js-cookie";
+import Url from "url/Allurl";
 
 
 
@@ -46,7 +47,7 @@ const VideoChat = ({ user, handleOpen }) => {
         redirect: 'follow'
       };
 
-      const response = await fetch("https://medical.studiomyraa.com/api/channnel_name", requestOptions);
+      const response = await fetch(`${Url}/api/channnel_name`, requestOptions);
       if (response.ok) {
         const result = await response.text();
         console.log(result,"77777777777777777777777777777777");

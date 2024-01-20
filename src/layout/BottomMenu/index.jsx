@@ -16,29 +16,28 @@ const BottomMenu = () => {
     const { isSidebarOpen } = useSidebarContext();
     const navigate = useNavigate();
 
+    const handleEmergencyCall = () => {
+        // Use the tel: link to initiate a call to 911
+        window.location.href = 'tel:911';
+    };
     const buttons = [
-        {
-            label: 'Emergency call',
-            icon: 'microphone-light'
-        },
+
         {
             label: 'Profile',
-            icon: 'user-light'
+            icon: 'user-light',
+            onClick: () => navigate('/settings')
         },
         {
             label: 'Home',
             icon: 'house-solid',
-            onClick: () => navigate('/')
+            onClick: () => navigate('/Provider-Dashboard')
         },
         {
             label: 'Notifications',
-            icon: 'bell-light'
+            icon: 'bell-light',
+
         },
-        {
-            label: 'Accessibility settings',
-            icon: 'gear-light',
-            onClick: () => setOpen(true)
-        }
+
     ]
 
     return (

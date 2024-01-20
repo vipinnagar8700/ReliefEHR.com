@@ -172,28 +172,28 @@ const CreateUser = ({ type }) => {
                                                 <Grid container spacing={2}>
 
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>User Name</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="User Name" size="small" name="Username" placeholder="User Name" value={values.Username} onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
                                                             touched.Username && errors.Username && <div style={{ color: "red" }}>{errors.Username}</div>
                                                         }
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>First Name</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="First Name" size="small" name="Name" placeholder="First Name" value={values.Name} onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
                                                             touched.Name && errors.Name && <div style={{ color: "red" }}>{errors.Name}</div>
                                                         }
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Last Name</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Last Name" size="small" name="LastName" value={values.LastName} placeholder="Last Name" onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
                                                             touched.LastName && errors.LastName && <div style={{ color: "red" }}>{errors.LastName}</div>
                                                         }
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Phone</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Phone" size="small" name="Phone" value={values.Phone} placeholder="Phone" onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
@@ -201,14 +201,14 @@ const CreateUser = ({ type }) => {
                                                         }
                                                     </Grid>
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Email</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Email" size="small" value={values.Email} name="Email" placeholder="Email" fullWidth onChange={handleChange} onBlur={handleBlur} />
                                                         {
                                                             touched.Email && errors.Email && <div style={{ color: "red" }}>{errors.Email}</div>
                                                         }
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}> Password</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Password" size="small" value={values.Password} name="Password" placeholder="Password" onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
@@ -222,7 +222,7 @@ const CreateUser = ({ type }) => {
 
 
 
-                                                    {/* <Grid item xs={6}>
+                                                    {/* <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>State</InputLabel>
 
                                                         <Select id="patient_add_referringDoctorState" labelId="dropdown-label"

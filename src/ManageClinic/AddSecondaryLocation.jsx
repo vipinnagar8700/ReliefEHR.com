@@ -139,14 +139,14 @@ const AddSecondaryLoaction = ({ type }) => {
                                         <Container>
                                             <form onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Discount Name</InputLabel>
                                                         <TextField placeholder="LocationName" size="small" value={values.LocationName} fullWidth onChange={handleChange} onBlur={handleBlur} name="LocationName" />
                                                         {
                                                             touched.LocationName && errors.LocationName && <div style={{ color: "red" }}>{errors.LocationName}</div>
                                                         }
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Discount Code</InputLabel>
                                                         <TextField id={`${type}ProfilePrefix`} title="LocationPhoneNumber" size="small" name="LocationPhoneNumber" value={values.LocationPhoneNumber} onChange={handleChange} onBlur={handleBlur} placeholder="LocationPhoneNumber" fullWidth />
                                                         {
@@ -154,14 +154,14 @@ const AddSecondaryLoaction = ({ type }) => {
                                                         }
                                                     </Grid>
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Description</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="AddressLine" size="small" name="AddressLine" placeholder="AddressLine" value={values.AddressLine} onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
                                                             touched.AddressLine && errors.AddressLine && <div style={{ color: "red" }}>{errors.AddressLine}</div>
                                                         }
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Discount Amount</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="AddressLine1" size="small" name="AddressLine1" value={values.AddressLine1} placeholder="AddressLine1" onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
@@ -170,7 +170,7 @@ const AddSecondaryLoaction = ({ type }) => {
                                                     </Grid>
 
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Discount Type</InputLabel>
 
                                                         <Select id="patient_add_referringDoctorState" labelId="dropdown-label"
@@ -188,7 +188,7 @@ const AddSecondaryLoaction = ({ type }) => {
 
 
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Expires On</InputLabel>
                                                         <TextField title="City" type='date' size="small" name="City" value={values.City} placeholder="City" onChange={handleChange} onBlur={handleBlur} fullWidth />
                                                         {
@@ -196,7 +196,7 @@ const AddSecondaryLoaction = ({ type }) => {
                                                         }
                                                     </Grid>
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}># Uses Per Patient</InputLabel>
 
                                                         <TextField id={`${type}ProfileLastName`} title="PostalCode" name="PostalCode" size="small" onChange={handleChange} onBlur={handleBlur} placeholder="PostalCode" value={values.PostalCode} fullWidth />

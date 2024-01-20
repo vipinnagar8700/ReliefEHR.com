@@ -16,6 +16,7 @@
   import Cookies from 'js-cookie';
   import { AddPatientapi, GetSinglePAtient, UpdatePatientData, UpdateProfileData } from '@components/Api/AllApi';
   import { useParams } from 'react-router';
+import Url from 'url/Allurl';
 
 
 
@@ -359,7 +360,7 @@
                         {pre.img && (
                           <img
                             style={{ borderRadius: 5, width: '100%', height: '100%', objectFit: 'cover' }}
-                            src={`https://medical.studiomyraa.com/public/uploads/images/${pre.img}`}
+                            src={`${Url}/public/uploads/images/${pre.img}`}
                             alt="Clinic Logo"
                           />
                         )}

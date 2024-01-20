@@ -192,7 +192,7 @@ const EditUser = ({ type }) => {
                                         <Container>
                                             <form onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Username</InputLabel>
                                                         <TextField placeholder="User Name" size="small" value={username} onChange={(e) => {
                                                             setAA({
@@ -203,7 +203,7 @@ const EditUser = ({ type }) => {
                                                     </Grid>
 
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>First Name</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="First Name" size="small" name="Name" placeholder="First Name" value={name} onChange={(e) => {
                                                             setAA({
@@ -212,7 +212,7 @@ const EditUser = ({ type }) => {
                                                         }} fullWidth />
 
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Last Name</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Last Name" size="small" name="LastName" placeholder="Last Name" value={lname} onChange={(e) => {
                                                             setAA({
@@ -221,7 +221,7 @@ const EditUser = ({ type }) => {
                                                         }} fullWidth />
 
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Phone</InputLabel>
                                                         <TextField title="Phone" size="small" name="Phone" placeholder="Phone" value={phone} onChange={(e) => {
                                                             setAA({
@@ -230,7 +230,7 @@ const EditUser = ({ type }) => {
                                                         }} fullWidth />
 
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Email</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Email" size="small" name="Email" placeholder="Email" value={email} onChange={(e) => {
                                                             setAA({
@@ -239,7 +239,7 @@ const EditUser = ({ type }) => {
                                                         }} fullWidth />
 
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor={`${type}ProfileBirthday`}> Password</InputLabel>
                                                         <TextField id={`${type}ProfileLastName`} title="Password" size="small" name="Password" placeholder="Password" value={password} onChange={(e) => {
                                                             setAA({

@@ -21,12 +21,14 @@ import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
 import { Stack } from '@mui/material';
 
+
 // hooks
 import { useState, useEffect } from 'react';
 import { DeleteCLinicShedule, GetAllOrdersData, GetAllPatientData, GetAllProductsData } from '@components/Api/AllApi';
 import { Link } from 'react-router-dom';
 import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
+import Url from 'url/Allurl';
 
 const AllProducts = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -109,7 +111,7 @@ const AllProducts = () => {
             name: 'Thumb',
             selector: (row) => (
                 <div style={{ border: '0px solid black', borderRadius: 25, height: 35, width: 35 }}>
-                    <img src={`https://medical.studiomyraa.com/public/uploads/images/${row.mname}`} alt={row.mname} />
+                    <img src={`${Url}/public/uploads/images/${row.mname}`} alt={row.mname} />
                 </div>
             ),
             sortable: true,

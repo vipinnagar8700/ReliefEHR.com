@@ -13,8 +13,10 @@ import useWindowSize from '@hooks/useWindowSize';
 import usePanelScroll from '@hooks/usePanelScroll';
 import {useSidebarContext} from '@contexts/sidebarContext';
 import {useRef, useEffect} from 'react';
+import { useNavigate } from 'react-router';
 
 const Panel = () => {
+    const navigate = useNavigate()
     const {width} = useWindowSize();
     const isMobile = width < 768;
     const isDesktop = width >= 1366;
@@ -25,6 +27,11 @@ const Panel = () => {
     useEffect(() => {
         document.documentElement.style.setProperty('--header-height', `${headerRef.current.offsetHeight}px`);
     }, [width]);
+
+
+    const handleREd =()=>{
+        navigate('/All-patient')
+    }
 
     return (
         <Header as={motion.header}
@@ -40,7 +47,7 @@ const Panel = () => {
                 )
             }
             <Search>
-                <Input type="search" id="globalSearch" placeholder={width < 414 ? 'Search' : 'Search patients or doctors'}/>
+                <Input type="search" id="globalSearch" placeholder={width < 414 ? 'Search' : 'Search patients'} onClick={handleREd}/>
                 <Label htmlFor="globalSearch">
                     <i className="icon icon-search"></i>
                 </Label>

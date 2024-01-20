@@ -1990,7 +1990,7 @@ export const AddThankuPage = (content) => {
         redirect: 'follow'
     };
 
-    return fetch("https://medical.studiomyraa.com/api/add_providers_thankyoupage", requestOptions)
+    return fetch(`${Url}/api/add_providers_thankyoupage`, requestOptions)
         .then((result) => {
             return result.json();
         })

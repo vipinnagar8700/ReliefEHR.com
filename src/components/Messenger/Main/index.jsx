@@ -10,6 +10,7 @@ import GroupSeparator from '@ui/GroupSeparator';
 import Tab from 'react-bootstrap/Tab';
 import ScrollContainer from '@components/ScrollContainer';
 import './style.css'
+
 // utils
 import moment from 'moment';
 
@@ -23,6 +24,7 @@ import typing from '@assets/typing.json';
 import VidocallMain from '../Header/App';
 import { MessageContainer } from '../Message/style';
 import Cookies from 'js-cookie';
+import Url from 'url/Allurl';
 
 
 const Main = ({ user }) => {
@@ -68,7 +70,7 @@ const Main = ({ user }) => {
             redirect: 'follow'
         };
 
-        fetch("https://medical.studiomyraa.com/api/getChats", requestOptions)
+        fetch(`${Url}/api/getChats`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.success) {

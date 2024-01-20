@@ -119,15 +119,15 @@ const ManageClinic = ({ type }) => {
                                 scrollButtons
                                 allowScrollButtonsMobile
                                 aria-label="scrollable force tabs example" onChange={handleChangeTab} aria-label="lab API tabs example" sx={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll' }}>
-                                <Tab sx={{ fontSize: 13,fontWeight:600,fontWeight:600 }} label="Company Information" value="1" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Manage User" value="2" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600}} label=" Appointment Type" value="6" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label=" Delivery Setting" value="7" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label=" Coupons & Discount" value="8" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Thank You Page" value="9" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600}} label="Custom Email Template" value="10" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Custom SMS Template" value="11" />
-                                <Tab sx={{ fontSize: 13,fontWeight:600 }} label="Triggers" value="12" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600, fontWeight: 600 }} label="Company Information" value="1" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label="Manage User" value="2" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label=" Appointment Type" value="6" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label=" Delivery Setting" value="7" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label=" Coupons & Discount" value="8" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label="Thank You Page" value="9" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label="Custom Email Template" value="10" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label="Custom SMS Template" value="11" />
+                                <Tab sx={{ fontSize: 13, fontWeight: 600 }} label="Triggers" value="12" />
                             </TabList>
                         </Box>
                         <TabPanel value="1">
@@ -137,7 +137,7 @@ const ManageClinic = ({ type }) => {
                                         <Container>
                                             <form onSubmit={handleUpdate}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicName"> Company Name</InputLabel>
                                                         <TextField
                                                             id="clinicName"
@@ -147,7 +147,7 @@ const ManageClinic = ({ type }) => {
                                                             fullWidth
                                                         />
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicEmail">Email Address</InputLabel>
                                                         <TextField
                                                             id="clinicEmail"
@@ -157,7 +157,7 @@ const ManageClinic = ({ type }) => {
                                                             fullWidth
                                                         />
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicEmail">Address</InputLabel>
                                                         <TextField
                                                             id="clinicEmail"
@@ -168,7 +168,7 @@ const ManageClinic = ({ type }) => {
                                                         />
                                                     </Grid>
 
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicEmail">Postal Code</InputLabel>
                                                         <TextField
                                                             id="clinicEmail"
@@ -178,7 +178,7 @@ const ManageClinic = ({ type }) => {
                                                             fullWidth
                                                         />
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicEmail">State</InputLabel>
                                                         <TextField
                                                             id="clinicEmail"
@@ -188,7 +188,7 @@ const ManageClinic = ({ type }) => {
                                                             fullWidth
                                                         />
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicPhone"> Phone Number</InputLabel>
                                                         <TextField
                                                             id="clinicPhone"
@@ -199,7 +199,7 @@ const ManageClinic = ({ type }) => {
                                                             fullWidth
                                                         />
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} md={6}>
                                                         <InputLabel htmlFor="clinicTimezone">Default Timezone</InputLabel>
                                                         <TextField
                                                             id="clinicTimezone"
@@ -212,7 +212,7 @@ const ManageClinic = ({ type }) => {
                                                     </Grid>
 
 
-                                                    <Grid item xs={6} mt={2.7}>
+                                                    <Grid item xs={12} md={6} mt={2.7}>
                                                         <button
                                                             style={{
                                                                 width: '150px',

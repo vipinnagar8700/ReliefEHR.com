@@ -14,6 +14,7 @@ import { LogoutProfile, ProfileApi } from '@components/Api/AllApi';
 import { useEffect } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Url from 'url/Allurl';
 
 const CurrentUser = () => {
     const navigate = useNavigate();
@@ -65,7 +66,7 @@ const CurrentUser = () => {
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
             <UserWrapper>
-                <img src={`https://medical.studiomyraa.com/public/uploads/images/${ProfileData.img}`} style={{ height: '25px', width: '25px' }} alt="avatar" />
+                <img src={`${Url}/public/uploads/images/${ProfileData.img}`} style={{ height: '25px', width: '25px' }} alt="avatar" />
                 <div className="info">
                     <span className="h3">{ProfileData.name} {ProfileData.lname}</span>
                     <span className="position">{ProfileData.address}</span>

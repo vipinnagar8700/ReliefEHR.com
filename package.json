@@ -68,7 +68,7 @@
     "react-helmet": "^6.1.0",
     "react-indiana-drag-scroll": "^2.2.0",
     "react-lines-ellipsis": "^0.15.3",
-    "react-loader-spinner": "^5.3.4",
+    "react-loader-spinner": "^3.1.5",
     "react-number-format": "^5.0.0",
     "react-pdf": "^7.3.3",
     "react-portal": "^4.2.2",

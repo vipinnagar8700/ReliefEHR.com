@@ -52,17 +52,17 @@ const DashboardK = () => {
             <Page title=" Provider Dashboard">
                 <Grid container >
                     
-                    <Grid items xs={2} sm={4} md={4}>
+                    <Grid items xs={12} sm={6} md={4}>
                         <div style={{margin:'4px'}} key="stat-cause">
                             <Statistics data={{ type: 'cause', value: PatientSData, text: 'Total Orders' }} />
                         </div>
                     </Grid>
-                    <Grid items xs={2} sm={4} md={4}>
+                    <Grid items xs={12} sm={6} md={4}>
                         <div style={{margin:'4px'}} key="stat-teeth">
                             <Statistics data={{ type: 'teeth', value: '0', text: 'Unread Messages' }} />
                         </div>
                     </Grid>
-                    <Grid items xs={2} sm={4} md={4}>
+                    <Grid items xs={12} sm={6} md={4}>
                         <div style={{margin:'4px'}} key="stat-heart">
                             <Statistics data={{ type: 'heart', value: PatientSData, text: 'New Order Today' }} />
                         </div>
@@ -71,13 +71,13 @@ const DashboardK = () => {
 
                 </Grid>
                 <Grid container>
-                    <Grid items md={3}>
+                    <Grid items xs={12} sm={6} md={3}>
 
                         <div style={{margin:'4px'}} key="events-compact">
                             <EventsCompactCalendar />
                         </div>
                     </Grid>
-                    <Grid items md={9}>
+                    <Grid items xs={12} sm={6} md={9} >
 
                         <div style={{margin:'4px'}} key="health-index">
                             <HealthIndexChart PatientSData={PatientSData} variant="both" />

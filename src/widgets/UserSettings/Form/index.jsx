@@ -20,6 +20,7 @@ import useNotistack from '@hooks/useNotistack';
 import { ProfileApi, UpdateProfileData } from '@components/Api/AllApi';
 import LabeledFormInput from '@ui/LabeledFormInput';
 import { useNavigate } from 'react-router-dom';
+import Url from 'url/Allurl';
 
 
 
@@ -111,7 +112,7 @@ const Form = ({ type }) => {
             <Container>
 
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>First Name</InputLabel>
                         <TextField placeholder="First Name" size="small" value={name} onChange={(e) => {
                             setEditProfile({
@@ -120,7 +121,7 @@ const Form = ({ type }) => {
                         }} fullWidth />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Last Name</InputLabel>
                         <TextField id={`${type}ProfileLastName`} title="Last Name" size="small" value={lname} onChange={(e) => {
                             setEditProfile({
@@ -128,7 +129,7 @@ const Form = ({ type }) => {
                             })
                         }} placeholder="Last Name" fullWidth />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Email</InputLabel>
                         <TextField id={`${type}ProfileLastName`} title="Email" size="small" value={email} onChange={(e) => {
                             setEditProfile({
@@ -136,7 +137,7 @@ const Form = ({ type }) => {
                             })
                         }} placeholder="Email" fullWidth />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                   <InputLabel htmlFor={`${type}ProfileBirthday`}>State</InputLabel>
 
                   <select id="patient_add_referringDoctorState" style={{
@@ -213,7 +214,7 @@ const Form = ({ type }) => {
 
 
                 </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>City</InputLabel>
                         <TextField id={`${type}ProfileLastName`} title="Pincode" size="small" value={city} onChange={(e) => {
                             setEditProfile({
@@ -222,7 +223,7 @@ const Form = ({ type }) => {
                         }} placeholder="Pincode" fullWidth />
 
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Pincode</InputLabel>
                         <TextField id={`${type}ProfileLastName`} title="Pincode" size="small" value={pincode} onChange={(e) => {
                             setEditProfile({
@@ -230,7 +231,7 @@ const Form = ({ type }) => {
                             })
                         }} placeholder="Pincode" fullWidth />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Address</InputLabel>
                         <TextField id={`${type}ProfileStreet`} title="Street" size="small" onChange={(e) => {
                             setEditProfile({
@@ -238,7 +239,7 @@ const Form = ({ type }) => {
                             })
                         }} placeholder="Street" value={address} fullWidth />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Address1</InputLabel>
                         <TextField id={`${type}ProfileAddress1`} title="Address Line 1" size="small" onChange={(e) => {
                             setEditProfile({
@@ -247,7 +248,7 @@ const Form = ({ type }) => {
                         }} placeholder="Address Line 1" value={address2} fullWidth />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>Date of Birth</InputLabel>
                         <TextField
                             id="profileBirthday"
@@ -266,7 +267,7 @@ const Form = ({ type }) => {
                         />
 
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor={`${type}ProfileBirthday`}>About</InputLabel>
                         <TextField id={`${type}ProfileBirthday`} title="about" size="small" placeholder="about" value={about} onChange={(e) => {
                             setEditProfile({
@@ -276,7 +277,7 @@ const Form = ({ type }) => {
                         }} fullWidth />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <InputLabel htmlFor="clinicLogo">My Avatar</InputLabel>
 
                         <Stack direction='row'>
@@ -292,7 +293,7 @@ const Form = ({ type }) => {
                                 {editProfile.img && (
                                     <img
                                         style={{ borderRadius: 5, width: '100%', height: '100%', objectFit: 'cover' }}
-                                        src={`https://medical.studiomyraa.com/public/uploads/images/${editProfile.img}`}
+                                        src={`${Url}/public/uploads/images/${editProfile.img}`}
                                         alt="Clinic Logo"
                                     />
                                 )}
@@ -307,7 +308,7 @@ const Form = ({ type }) => {
                     {type === 'patient' && (
                         <>
 
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                                 <InputLabel htmlFor={`${type}ProfileBirthday`}>Phone</InputLabel>
                                 <TextField id="patientProfilePhone" title="Phone" onChange={(e) => {
                                     setEditProfile({

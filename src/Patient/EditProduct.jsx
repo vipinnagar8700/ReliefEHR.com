@@ -14,6 +14,8 @@ import Sidebar from '@layout/Sidebar';
 import Panel from '@layout/Panel';
 import { GetSingleProduct, addProductesData, updateProductData } from '@components/Api/AllApi';
 import Cookies from 'js-cookie';
+import Url from 'url/Allurl';
+
 
 
 
@@ -625,7 +627,7 @@ const EditSingleProduct = () => {
                                         {pro.img && (
                                             <img
                                                 style={{ borderRadius: 1, width: '100%', height: '100%', objectFit: 'cover' }}
-                                                src={`https://medical.studiomyraa.com/public/uploads/images/${pro.img}`}
+                                                src={`${Url}/public/uploads/images/${pro.img}`}
                                                 alt="Clinic Logo"
                                             />
                                         )}
